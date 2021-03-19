@@ -65,6 +65,7 @@ class Player {
 
 		this.movementSpeed = 1;
 		this.canMove = true;
+		this.enemyEncounterRate = 10;
 	}
 
 	updatePosText() {
@@ -80,12 +81,9 @@ class Player {
 		this.posY += (y * this.movementSpeed);
 		this.updatePosText();
 
-		enemies.forEach(enemy => {
-			if (enemy.posX == this.posX && enemy.posY == this.posY) {
-				this.battle(enemy);
-				return;
-			}
-		});
+		if (getRandomInt(0, 100) < this.enemyEncounterRate) {
+                    this.battle(new Enemy());
+		}
 	}
 
 	tpHome() {
@@ -123,7 +121,7 @@ class Player {
 		this.canMove = false;
 		addToGameLogs("You encountered an enemy!");
 		for (let i = 0; i > -1; i++) {
-			
+	
 		}
 	}
 
