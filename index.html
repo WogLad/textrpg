@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Civilization Manager</title>
+		<script src="index.js" async></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="This is the description of the website.">
+		<meta name="theme-color" content="#317EFB"/>
+	</head>
+	<body>
+		<link rel="preload" as="style" href="style.css" onload="this.rel='stylesheet'" />
+
+		<h1>RPG Text Game</h1>
+		<!-- <input id="commandInputBox" type="text" name="bob"> -->
+		<!-- <button id="submitButton" type="submit" onclick="parseCommand();">Enter</button> -->
+		<button class="left-button" onclick="player.move(0, 1);">Front</button>
+		<button class="left-button" onclick="player.move(-1, 0);">Left</button>
+		<br>
+		<button class="left-button" onclick="player.move(0, -1);">Back</button>
+		<button class="left-button" onclick="player.move(1, 0);">Right</button>
+		<br>
+		<br>
+		<button class="left-buttom" onclick="player.tpHome();">Home Teleport</button>
+		<br>
+		<p id="posText">
+			<b>x</b>: 0
+			<br>
+			<b>y</b>: 0
+		</p>
+		<br>
+		<div id="gameLogs" class="logs">
+			Welcome to RPG Text Game!
+		</div>
+	</body>
+</html>
