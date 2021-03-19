@@ -30,9 +30,11 @@ class Tool extends Item {
 }
 
 class Weapon extends Item {
-	constructor(name, weaponPower) {
+	constructor(name, weaponPower, critRate, critDamage) {
 		super(name);
 		this.weaponPower = weaponPower;
+		this.critRate = critRate;
+		this.critDamage = critDamage;
 	}
 }
 
@@ -123,6 +125,10 @@ class Player {
 		for (let i = 0; i > -1; i++) {
 			
 		}
+	}
+
+	equip(equipmentType, equipment) {
+		
 	}
 }
 
