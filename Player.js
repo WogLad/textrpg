@@ -135,4 +135,21 @@ class Player {
 				break;
 		}
 	}
+
+    loadSaveData(saveData) {
+        this.name = saveData["name"];
+        this.gold = saveData["gold"];
+        this.posX = saveData["posX"];
+        this.posY = saveData["posY"];
+        // Inventory Loading
+        this.damage = saveData["damage"];
+        this.critDamage = saveData["critDamage"];
+        this.critRate = saveData["critRate"];
+        this.defense = saveData["defense"];
+        this.kills = saveData["kills"];
+        this.currentHP = saveData["currentHP"];
+        this.maxHP = saveData["maxHP"];
+        this.movementSpeed = saveData["movementSpeed"];
+        // Equipment Loading
+    }
 }
