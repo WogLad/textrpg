@@ -8,23 +8,23 @@ class Enemy {
 		this.maxHP = 10;
 	}
 
-	attack(playerToAttack) {
-		var finalDamage = this.damage;
-		if (getRandomInt(0, 100) < this.critRate) {
-			finalDamage += (finalDamage * (this.critDamage/100));
-		}
-		playerToAttack.takeDamage(finalDamage);
-	}
+	// attack(playerToAttack) {
+	// 	var finalDamage = this.damage;
+	// 	if (getRandomInt(0, 100) < this.critRate) {
+	// 		finalDamage += (finalDamage * (this.critDamage/100));
+	// 	}
+	// 	playerToAttack.takeDamage(finalDamage);
+	// }
 
 	die() {
-		addToGameLogs("<span style='color:red;'>You died!</span>");
-		delete this;
+		addToGameLogs("<span style='color:red;'>You killed the enemy!</span>");
+		// delete this;
 	}
 
 	takeDamage(damageToTake) {
 		this.currentHP -= damageToTake;
-		if (this.currentHP <= 0) {
-			this.die();
-		}
+		// if (this.currentHP <= 0) {
+		// 	this.die();
+		// }
 	}
 }

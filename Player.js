@@ -20,10 +20,12 @@ class Player {
 		this.inventory = new Array();
 		this.inventory.push(itemDb["wooden_axe"]);
 
-		this.damage = 1;
+		this.damage = 2;
 		this.critRate = 5; // In percentage
 		this.critDamage = 5; // In percentage
 		this.defense = 0;
+
+        this.kills = 0;
 
 		this.currentHP = 10;
 		this.maxHP = 10;
@@ -69,6 +71,8 @@ class Player {
 		if (getRandomInt(0, 100) < this.critRate) {
 			finalDamage += (finalDamage * (this.critDamage/100));
 		}
+        finalDamage = Math.floor(finalDamage);
+        addToGameLogs("You deal " + finalDamage.toString() + " damage to the enemy.");
 		enemyToAttack.takeDamage(finalDamage);
 	}
 
@@ -80,21 +84,45 @@ class Player {
 
 	takeDamage(damageToTake) {
 		this.currentHP -= damageToTake;
-		if (this.currentHP <= 0) {
-			this.die();
-		}
+        addToGameLogs("You lost " + damageToTake.toString() + " HP.");
+		// if (this.currentHP <= 0) {
+        //     this.canMove = true;
+		// 	this.die();
+		// }
 	}
 
 	battle(enemy) {
 		this.canMove = false;
 		addToGameLogs("You encountered an enemy!");
-		setTimeout(() => {
-			console.log("hey");
-			this.canMove = true;
-		}, 5000);
-		// for (let i = 0; i > -1; i++) {
-		// 	break;
-		// }
+        var response = prompt("You encountered an enemy.\nDo you wish to fight it? (yes/no)");
+        if (response.toLowerCase() == "no") {
+            addToGameLogs("You escaped from the enemy.");
+            this.canMove = true;
+        }
+        else {
+            addToGameLogs("You begin to fight the enemy.");
+            var turns = 0;
+            var battleLoop = setInterval(() => {
+                if (turns % 2 == 0) {
+                    this.attack(enemy);
+                    if (enemy.currentHP <= 0) {
+                        this.canMove = true;
+                        enemy.die();
+                        this.kills++;
+                        clearInterval(battleLoop);
+                    }
+                }
+                else {
+                    this.takeDamage(enemy.damage);
+                    if (this.currentHP <= 0) {
+                        this.canMove = true;
+                    	this.die();
+                        clearInterval(battleLoop);
+                    }
+                }
+                turns++;
+            }, 1000);
+        }
 	}
 
 	equip(equipment) {
