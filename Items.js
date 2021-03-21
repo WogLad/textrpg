@@ -21,3 +21,11 @@ class Weapon extends Item {
 		this.critDamage = critDamage;
 	}
 }
+
+class Equipment extends Item {
+	constructor(name, type, equipmentType, defenseBonus) {
+		super(name, type);
+		this.equipmentType = equipmentType;
+		this.defenseBonus = defenseBonus;
+	}
+}

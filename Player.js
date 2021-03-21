@@ -1,4 +1,4 @@
-class Equipment {
+class EquipmentSlots {
 	constructor() {
 		this.head = null;
 		this.chest = null;
@@ -34,12 +34,12 @@ class Player {
 		this.canMove = true;
 		this.enemyEncounterRate = 10;
 
-		this.equipment = new Equipment();
+		this.equipment = new EquipmentSlots();
 	}
 
 	updatePosText() {
 		var posText = document.getElementById("posText");
-		posText.innerHTML = "<b>x</b>: " + this.posX.toString() + "<br>" + "<b>y</b>: " + this.posY.toString();
+		posText.innerHTML = "<b>x</b>: " + this.posX + "<br>" + "<b>y</b>: " + this.posY;
 	}
 
 	move(x, y) {
@@ -127,6 +127,18 @@ class Player {
 
 	equip(equipment) {
 		switch (equipment.type) {
+			case "head":
+				this.equipment.head = equipment;
+				break;
+			case "chest":
+				this.equipment.chest = equipment;
+				break;
+			case "legs":
+				this.equipment.legs = equipment;
+				break;
+			case "feet":
+				this.equipment.feet = equipment;
+				break;
 			case "tool":
 				this.equipment.tool = equipment;
 				break;
@@ -136,12 +148,33 @@ class Player {
 		}
 	}
 
-    loadSaveData(saveData) {
+	askForLoadData() {
+		var saveData = prompt("Paste your save data here.");
+		this.loadSaveData(saveData);
+	}
+
+    loadSaveData(saveDataString) {
+		var saveData = JSON.parse(saveDataString);
         this.name = saveData["name"];
         this.gold = saveData["gold"];
         this.posX = saveData["posX"];
         this.posY = saveData["posY"];
+		this.updatePosText();
+
         // Inventory Loading
+		saveData["inventory"].forEach(item => {
+			switch (item["type"]) {
+				case "tool":
+					var tool = new Tool(item["name"], "tool", item["axePower"], item["pickaxePower"]);
+					this.inventory.push(tool);
+					break;
+				case "weapon":
+					var weapon = new Weapon(item["name"], "tool", item["weaponPower"], item["critRate"], item["critDamage"]);
+					this.inventory.push(weapon);
+					break;
+			}
+		});
+
         this.damage = saveData["damage"];
         this.critDamage = saveData["critDamage"];
         this.critRate = saveData["critRate"];
@@ -150,6 +183,48 @@ class Player {
         this.currentHP = saveData["currentHP"];
         this.maxHP = saveData["maxHP"];
         this.movementSpeed = saveData["movementSpeed"];
+
         // Equipment Loading
+		var headData = saveData["equipment"]["head"];
+		if (headData != null) {
+			this.equipment.head = new Equipment(headData["name"], headData["type"], headData["equipmentType"], headData["defenseBonus"]);
+		}
+		
+		var chestData = saveData["equipment"]["chest"];
+		if (chestData != null) {
+			this.equipment.chest = new Equipment(chestData["name"], chestData["type"], chestData["equipmentType"], chestData["defenseBonus"]);
+		}
+		
+		var legsData = saveData["equipment"]["legs"];
+		if (legsData != null) {
+			this.equipment.legs = new Equipment(legsData["name"], legsData["type"], legsData["equipmentType"], legsData["defenseBonus"]);
+		}
+		
+		var feetData = saveData["equipment"]["feet"];
+		if (feetData != null) {
+			this.equipment.feet = new Equipment(feetData["name"], feetData["type"], feetData["equipmentType"], feetData["defenseBonus"]);
+		}
+		
+		var weaponData = saveData["equipment"]["weapon"];
+		if (weaponData != null) {
+			this.equipment.weapon = new Weapon(weaponData["name"], weaponData["type"], weaponData["weaponPower"], weaponData["critRate"], weaponData["critDamage"]);
+		}
+		
+		var toolData = saveData["equipment"]["tool"];
+		if (toolData != null) {
+			this.equipment.tool = new Tool(toolData["name"], toolData["type"], toolData["axePower"], toolData["pickaxePower"]);
+		}
     }
+
+	copySaveData() {
+		const el = document.createElement('textarea');
+		el.value = JSON.stringify(this);
+		el.setAttribute('readonly', '');
+		el.style.position = 'absolute';
+		el.style.left = '-9999px';
+		document.body.appendChild(el);
+		el.select();
+		document.execCommand('copy');
+		document.body.removeChild(el);
+	}
 }
