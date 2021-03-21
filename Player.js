@@ -226,5 +226,6 @@ class Player {
 		el.select();
 		document.execCommand('copy');
 		document.body.removeChild(el);
+		alert("Successfully copied the save data to the clipboard.")
 	}
 }
