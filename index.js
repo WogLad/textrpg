@@ -24,13 +24,13 @@ function addToGameLogs(message) {
 var player = new Player("Player");
 
 function loadSaveDataFromLocalStorage() {
-	player.loadSaveData(localStorage.getItem("saveData"));
-	localStorage.setItem("saveData", JSON.stringify(player));
+	if (localStorage.getItem("saveData") != null) {
+		player.loadSaveData(localStorage.getItem("saveData"));
+		localStorage.setItem("saveData", JSON.stringify(player));
+	}
 }
 
-if (localStorage.getItem("saveData") != null) {
-	loadSaveDataFromLocalStorage();
-}
+loadSaveDataFromLocalStorage();
 
 setInterval(() => {
 	localStorage.setItem("saveData", JSON.stringify(player));
