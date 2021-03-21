@@ -28,10 +28,12 @@ function loadSaveDataFromLocalStorage() {
 	localStorage.setItem("saveData", JSON.stringify(player));
 }
 
-loadSaveDataFromLocalStorage();
+if (localStorage.getItem("saveData") != null) {
+	loadSaveDataFromLocalStorage();
+}
 
 setInterval(() => {
 	localStorage.setItem("saveData", JSON.stringify(player));
-}, 10000);
+}, 1000);
 
 // var saveData = '{"name":"WogLad","gold":0,"posX":0,"posY":8,"inventory":[{"name":"Wooden Axe","type":"tool","axePower":1,"pickaxePower":0}],"damage":2,"critRate":5,"critDamage":5,"defense":0,"kills":0,"currentHP":10,"maxHP":10,"movementSpeed":1,"canMove":true,"enemyEncounterRate":10,"equipment":{"head":null,"chest":null,"legs":null,"feet":null,"weapon":null,"tool":null}}'
