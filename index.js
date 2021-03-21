@@ -28,6 +28,8 @@ function loadSaveDataFromLocalStorage() {
 	localStorage.setItem("saveData", JSON.stringify(player));
 }
 
+loadSaveDataFromLocalStorage();
+
 setInterval(() => {
 	localStorage.setItem("saveData", JSON.stringify(player));
 }, 10000);
