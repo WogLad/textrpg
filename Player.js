@@ -9,6 +9,16 @@ class EquipmentSlots {
 	}
 }
 
+class PlayerSkills {
+	constructor() {
+		this.mining = 0;
+		this.fishing = 0;
+		this.woodcutting = 0;
+		this.hunter = 0;
+		this.farming = 0;
+	}
+}
+
 class Player {
 	constructor(name) {
 		this.name = name;
@@ -38,6 +48,7 @@ class Player {
 		this.enemyEncounterRate = 10;
 
 		this.equipment = new EquipmentSlots();
+		this.skills = new PlayerSkills();
 	}
 
 	updatePosText() {
@@ -286,6 +297,14 @@ class Player {
 			var toolObj = new Tool(toolData["name"], toolData["type"], toolData["axePower"], toolData["pickaxePower"]);
 			this.equip(toolObj);
 		}
+
+		// Player Stats Loading
+		var skillsData = saveData["skills"];
+		this.skills.mining = skillsData["mining"];
+		this.skills.fishing = skillsData["fishing"];
+		this.skills.woodcutting = skillsData["woodcutting"];
+		this.skills.hunter = skillsData["hunter"];
+		this.skills.farming = skillsData["farming"];
     }
 
 	copySaveData() {
