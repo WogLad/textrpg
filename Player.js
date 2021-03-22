@@ -28,7 +28,6 @@ class Player {
 		this.posY = 0;
 
 		this.inventory = new Array();
-		this.inventory.push(itemDb["wooden_axe"]);
 
 		this.damage = 2;
 		this.critRate = 5; // In percentage
