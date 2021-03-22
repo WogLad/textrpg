@@ -5,14 +5,38 @@ function getRandomInt(min, max) {
 }
 
 const itemDb = {
+	// Ores
+	"copper_ore": new Item("Copper Ore", "item"),
+	"iron_ore": new Item("Iron Ore", "item"),
+	"mithril_ore": new Item("Mithril Ore", "item"),
+	"adamant_ore": new Item("Adamant Ore", "item"),
+
+	// Enemy Loot
+	"bones": new Item("Bones", "item"),
+	"slime": new Item("Slime", "item"),
+	"spider_eye": new Item("Spider Eye", "item"),
+	"rotten_flesh": new Item("Rotten Flesh", "item"),
+
 	// Axes
-	"wooden_axe": new Tool("Copper Axe", "tool", 1, 0),
+	"copper_axe": new Tool("Copper Axe", "tool", 1, 0),
+	"iron_axe": new Tool("Iron Axe", "tool", 2, 0),
+	"mithril_axe": new Tool("Mithril Axe", "tool", 3, 0),
+	"adamant_axe": new Tool("Adamant Axe", "tool", 4, 0),
+	"obsidian_axe": new Tool("Obsidian Axe", "tool", 5, 0),
 
 	// Pickaxes
-	"wooden_pickaxe": new Tool("Copper Pickaxe", "tool", 0, 1),
+	"copper_pickaxe": new Tool("Copper Pickaxe", "tool", 0, 1),
+	"iron_pickaxe": new Tool("Iron Pickaxe", "tool", 0, 2),
+	"mithril_pickaxe": new Tool("Mithril Pickaxe", "tool", 0, 3),
+	"adamant_pickaxe": new Tool("Adamant Pickaxe", "tool", 0, 4),
+	"obsidian_pickaxe": new Tool("Obsidian Pickaxe", "tool", 0, 5),
 
 	// Swords
-	"wooden_sword": new Weapon("Copper Sword", "weapon", 1, 0, 0)
+	"copper_sword": new Weapon("Copper Sword", "weapon", 5, 0, 0),
+	"iron_sword": new Weapon("Iron Sword", "weapon", 11, 5, 5),
+	"mithril_sword": new Weapon("Mithril Sword", "weapon", 16, 10, 10),
+	"adamant_sword": new Weapon("Adamant Sword", "weapon", 23, 15, 15),
+	"obsidian_sword": new Weapon("Obsidian Sword", "weapon", 45, 20, 25)
 }
 
 var enemies = new Array();
