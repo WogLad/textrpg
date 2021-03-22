@@ -52,7 +52,7 @@ class Player {
 			this.updatePosText();
 
 			if (getRandomInt(0, 100) < this.enemyEncounterRate) {
-				this.battle(new Enemy());
+				this.battle(getRandomEnemy());
 			}
 		}
 	}
@@ -88,22 +88,18 @@ class Player {
 	takeDamage(damageToTake) {
 		this.currentHP -= damageToTake;
         addToGameLogs("You lost " + damageToTake.toString() + " HP.");
-		// if (this.currentHP <= 0) {
-        //     this.canMove = true;
-		// 	this.die();
-		// }
 	}
 
 	battle(enemy) {
 		this.canMove = false;
-		addToGameLogs("You encountered an enemy!");
-        var response = prompt("You encountered an enemy.\nDo you wish to fight it? (yes/no)");
+		addToGameLogs(enemy.encounterMessage);
+        var response = prompt(enemy.encounterMessage + "\nDo you wish to fight it? (yes/no)");
         if (response.toLowerCase() == "no") {
-            addToGameLogs("You escaped from the enemy.");
+            addToGameLogs("You escaped from the " + enemy.name.toLowerCase() + ".");
             this.canMove = true;
         }
         else {
-            addToGameLogs("You begin to fight the enemy.");
+            addToGameLogs("You begin to fight the " + enemy.name.toLowerCase() + ".");
             var turns = 0;
             var battleLoop = setInterval(() => {
                 if (turns % 2 == 0) {
@@ -223,15 +219,25 @@ class Player {
 
         // Inventory Loading
 		saveData["inventory"].forEach(item => {
-			switch (item["type"]) {
-				case "tool":
-					var tool = new Tool(item["name"], "tool", item["axePower"], item["pickaxePower"]);
-					this.inventory.push(tool);
-					break;
-				case "weapon":
-					var weapon = new Weapon(item["name"], "tool", item["weaponPower"], item["critRate"], item["critDamage"]);
-					this.inventory.push(weapon);
-					break;
+			if (item != null) {
+				switch (item["type"]) {
+					case "item":
+						var newItem = new Item(item["name"], "item");
+						this.inventory.push(newItem);
+						break;
+					case "tool":
+						var tool = new Tool(item["name"], "tool", item["axePower"], item["pickaxePower"]);
+						this.inventory.push(tool);
+						break;
+					case "weapon":
+						var weapon = new Weapon(item["name"], "weapon", item["weaponPower"], item["critRate"], item["critDamage"]);
+						this.inventory.push(weapon);
+						break;
+					case "equipment":
+						var armor = new Equipment(item["name"], "equipment", item["equipmentType"], item["defenseBonus"]);
+						this.inventory.push(armor);
+						break;
+				}
 			}
 		});
 
