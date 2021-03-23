@@ -55,6 +55,15 @@ class Player {
 		posText.innerHTML = "<b>x</b>: " + this.posX + "<br>" + "<b>y</b>: " + this.posY;
 	}
 
+	updateStatsText() {
+		document.getElementById("playerStatsDiv").innerHTML = (
+			"Damage: " + this.damage + "<br>" +
+			"Health: " + this.currentHP + "/" + this.maxHP + "<br>" +
+			"Defense: " + this.defense + "<br>" +
+			"Kills: " + this.kills
+		);
+	}
+
 	move(x, y) {
 		if (this.canMove) {
 			this.posX += (x * this.movementSpeed);
@@ -87,17 +96,20 @@ class Player {
         finalDamage = Math.floor(finalDamage);
         addToGameLogs("You deal " + finalDamage.toString() + " damage to the enemy.");
 		enemyToAttack.takeDamage(finalDamage);
+		this.updateStatsText();
 	}
 
 	die() {
 		this.tpHome();
 		this.currentHP = this.maxHP;
 		addToGameLogs("<span style='color:red;'>You died!</span>");
+		this.updateStatsText();
 	}
 
 	takeDamage(damageToTake) {
 		this.currentHP -= damageToTake;
         addToGameLogs("You lost " + damageToTake.toString() + " HP.");
+		this.updateStatsText();
 	}
 
 	battle(enemy) {
@@ -120,6 +132,7 @@ class Player {
                         this.kills++;
                         clearInterval(battleLoop);
                     }
+					this.updateStatsText();
                 }
                 else {
                     this.takeDamage(enemy.damage);
@@ -128,9 +141,12 @@ class Player {
                     	this.die();
                         clearInterval(battleLoop);
                     }
+					this.updateStatsText();
                 }
                 turns++;
+				this.updateStatsText();
             }, 1000);
+			this.updateStatsText();
         }
 	}
 
@@ -212,6 +228,7 @@ class Player {
 				}
 				break;
 		}
+		this.updateStatsText();
 	}
 
 	askForLoadData() {
@@ -304,6 +321,8 @@ class Player {
 		this.skills.woodcutting = skillsData["woodcutting"];
 		this.skills.hunter = skillsData["hunter"];
 		this.skills.farming = skillsData["farming"];
+
+		this.updateStatsText();
     }
 
 	copySaveData() {
