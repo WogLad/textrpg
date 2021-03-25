@@ -19,14 +19,19 @@
 		<div id="left-arrow" style="width: 22px; display: inline;"><i onclick="player.move(-1, 0);" class="gg-arrow-left-r"></i></div>
 		<div id="right-arrow" style="width: 22px; transform: rotate(180deg) translate(-44px, 22px);"><i onclick="player.move(1, 0);" class="gg-arrow-left-r"></i></div>
 		<div id="down-arrow" style="width: 22px; transform: translate(22px, -22px);"><i onclick="player.move(0, -1);" class="gg-arrow-down-r"></i></div>
-		<button class="left-buttom" onclick="player.tpHome();">Home Teleport</button>
+		<p id="posText" class="logs" style="width: 7%; transform: translate(100px, -100px)">
+			<b>x</b>: 0
+			<br>
+			<b>y</b>: 0
+		</p>
+		<button class="left-buttom" onclick="player.tpHome();" style="transform: translate(0, -90px);">Home Teleport</button>
 		<br>
 		<br>
-		<button id="copySaveDataButton" type="submit" onclick="player.copySaveData();">Copy Save Data</button>
-		<button id="loadSaveDataButton" type="submit" onclick="player.askForLoadData();">Load Save Data</button>
+		<button id="copySaveDataButton" type="submit" onclick="player.copySaveData();" style="transform: translate(0, -90px);">Copy Save Data</button>
+		<button id="loadSaveDataButton" type="submit" onclick="player.askForLoadData();" style="transform: translate(0, -90px);">Load Save Data</button>
 		<br>
 		<br>
-		<div id="playerStatsDiv" class="logs" style="width: 10%;">
+		<div id="playerStatsDiv" class="logs" style="width: 10%; transform: translate(0, -90px);">
 			Damage: 1
 			<br>
 			Health: 10/10
@@ -37,13 +42,7 @@
 			<br>
 		</div>
 		<br>
-		<p id="posText" class="logs" style="width: 7%;">
-			<b>x</b>: 0
-			<br>
-			<b>y</b>: 0
-		</p>
-		<br>
-		<div id="gameLogs" class="logs">
+		<div id="gameLogs" class="logs" style="transform: translate(0, -90px);">
 			Welcome to RPG Text Game!
 		</div>
 	</body>
