@@ -9,13 +9,28 @@ class EquipmentSlots {
 	}
 }
 
-class PlayerSkills {
-	constructor() {
-		this.mining = 0;
-		this.fishing = 0;
-		this.woodcutting = 0;
-		this.hunter = 0;
-		this.farming = 0;
+class Skill {
+	constructor(name, maxLevel) {
+		this.name = name;
+		this.exp = 0;
+		this.level = 1;
+		this.maxLevel = maxLevel;
+		this.firstLevelUpExp = 50; // The amount of exp required to go from level 1 to level 2.
+	}
+
+	addExp(amount) {
+		if (this.level >= this.maxLevel) {return;}
+		this.exp += amount;
+		if ((this.level == 1) && (this.exp >= this.firstLevelUpExp)) {
+			// Level Up to Level 2.
+			this.exp = 0;
+			this.level++;
+		}
+		else if (this.exp >= Math.floor(this.firstLevelUpExp * (Math.pow(1.15, (this.level-1))))) {
+			// Level Up to the next level.
+			this.exp = 0;
+			this.level++;
+		}
 	}
 }
 
@@ -47,7 +62,13 @@ class Player {
 		this.enemyEncounterRate = 10;
 
 		this.equipment = new EquipmentSlots();
-		this.skills = new PlayerSkills();
+		this.skills = [
+			new Skill("Mining", 99),
+			new Skill("Fishing", 99),
+			new Skill("Woodcutting", 99),
+			new Skill("Hunter", 99),
+			new Skill("Farming", 99)
+		]
 	}
 
 	updatePosText() {
@@ -116,7 +137,7 @@ class Player {
 		this.canMove = false;
 		addToGameLogs(enemy.encounterMessage);
         var response = prompt(enemy.encounterMessage + "\nDo you wish to fight it? (yes/no)");
-        if (response.toLowerCase() == "no") {
+        if (response == null || response.toLowerCase() == "no") {
             addToGameLogs("You escaped from the " + enemy.name.toLowerCase() + ".");
             this.canMove = true;
         }
@@ -316,11 +337,12 @@ class Player {
 
 		// Player Stats Loading
 		var skillsData = saveData["skills"];
-		this.skills.mining = skillsData["mining"];
-		this.skills.fishing = skillsData["fishing"];
-		this.skills.woodcutting = skillsData["woodcutting"];
-		this.skills.hunter = skillsData["hunter"];
-		this.skills.farming = skillsData["farming"];
+		skillsData.forEach(skill => {
+			var skillObject = new Skill(skill["name"], skill["maxLevel"]);
+			skillObject.exp = skill["exp"];
+			skillObject.level = skill["level"];
+			this.skills.push(skillObject);
+		});
 
 		this.updateStatsText();
     }
