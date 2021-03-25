@@ -21,14 +21,15 @@ class Skill {
 	addExp(amount) {
 		if (this.level >= this.maxLevel) {return;}
 		this.exp += amount;
+		var expForNextLevel = Math.floor(this.firstLevelUpExp * (Math.pow(1.15, (this.level-1))));
 		if ((this.level == 1) && (this.exp >= this.firstLevelUpExp)) {
 			// Level Up to Level 2.
-			this.exp = 0;
+			this.exp = (this.exp - this.firstLevelUpExp);
 			this.level++;
 		}
-		else if (this.exp >= Math.floor(this.firstLevelUpExp * (Math.pow(1.15, (this.level-1))))) {
+		else if (this.exp >= expForNextLevel) {
 			// Level Up to the next level.
-			this.exp = 0;
+			this.exp = (this.exp - expForNextLevel);
 			this.level++;
 		}
 	}
@@ -337,12 +338,10 @@ class Player {
 
 		// Player Stats Loading
 		var skillsData = saveData["skills"];
-		skillsData.forEach(skill => {
-			var skillObject = new Skill(skill["name"], skill["maxLevel"]);
-			skillObject.exp = skill["exp"];
-			skillObject.level = skill["level"];
-			this.skills.push(skillObject);
-		});
+		for (var i = 0; i < this.skills.length; i++) {
+			this.skills[i].exp = skillsData[i]["exp"];
+			this.skills[i].level = skillsData[i]["level"];
+		}
 
 		this.updateStatsText();
     }
