@@ -373,4 +373,9 @@ class Player {
 		document.body.removeChild(el);
 		alert("Successfully copied the save data to the clipboard.");
 	}
+
+	clearSaveData() {
+		localStorage.setItem("saveData", JSON.stringify(new Player("Player")));
+		location.reload();
+	}
 }
