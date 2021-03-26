@@ -32,6 +32,7 @@ class Skill {
 			this.exp = (this.exp - expForNextLevel);
 			this.level++;
 		}
+		player.updateSkillsText();
 	}
 }
 
@@ -82,7 +83,20 @@ class Player {
 			"Damage: " + this.damage + "<br>" +
 			"Health: " + this.currentHP + "/" + this.maxHP + "<br>" +
 			"Defense: " + this.defense + "<br>" +
-			"Kills: " + this.kills
+			"Kills: " + this.kills + "<br>" +
+			"Crit Rate: " + this.critRate + "%" + "<br>" +
+			"Crit Damage: " + this.critDamage + "%"
+		);
+	}
+
+	updateSkillsText() {
+		document.getElementById("playerSkillsDiv").innerHTML = (
+			"<b><u>Skills:</u></b>" + "<br>" +
+			"Mining: " + this.skills[0].level + "<br>" + 
+			"Fishing: " + this.skills[1].level + "<br>" + 
+			"Woodcutting: " + this.skills[2].level + "<br>" + 
+			"Hunter: " + this.skills[3].level + "<br>" + 
+			"Farming: " + this.skills[4].level
 		);
 	}
 
@@ -344,6 +358,7 @@ class Player {
 		}
 
 		this.updateStatsText();
+		this.updateSkillsText();
     }
 
 	copySaveData() {
