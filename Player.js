@@ -18,23 +18,37 @@ class Skill {
 		this.firstLevelUpExp = 50; // The amount of exp required to go from level 1 to level 2.
 	}
 
+	getExpForNextLevel() {
+		return Math.floor(this.firstLevelUpExp * (Math.pow(1.15, (this.level-1))))
+	}
+
 	addExp(amount) {
 		if (this.level >= this.maxLevel) {return;}
 		this.exp += amount;
-		var expForNextLevel = Math.floor(this.firstLevelUpExp * (Math.pow(1.15, (this.level-1))));
+		var expForNextLevel = this.getExpForNextLevel();
 		if ((this.level == 1) && (this.exp >= this.firstLevelUpExp)) {
 			// Level Up to Level 2.
 			this.exp = (this.exp - this.firstLevelUpExp);
 			this.level++;
+			while (this.level < this.maxLevel && this.exp >= this.getExpForNextLevel()) {
+				this.exp -= this.getExpForNextLevel();
+				this.level++;
+			}
 		}
 		else if (this.exp >= expForNextLevel) {
 			// Level Up to the next level.
 			this.exp = (this.exp - expForNextLevel);
 			this.level++;
+			while (this.level < this.maxLevel && this.exp >= this.getExpForNextLevel()) {
+				this.exp -= this.getExpForNextLevel();
+				this.level++;
+			}
 		}
 		player.updateSkillsText();
 	}
 }
+
+const Locations = Object.freeze({"OVERWORLD":"Overworld", "CAVE":"Cave"});
 
 class Player {
 	constructor(name) {
@@ -43,6 +57,7 @@ class Player {
 
 		this.posX = 0;
 		this.posY = 0;
+		this.location = Locations.OVERWORLD;
 
 		this.inventory = new Array();
 
@@ -61,7 +76,9 @@ class Player {
 
 		this.movementSpeed = 1;
 		this.canMove = true;
+
 		this.enemyEncounterRate = 10;
+		this.caveEncounterRate = 5;
 
 		this.equipment = new EquipmentSlots();
 		this.skills = [
@@ -75,7 +92,7 @@ class Player {
 
 	updatePosText() {
 		var posText = document.getElementById("posText");
-		posText.innerHTML = "<b>x</b>: " + this.posX + "<br>" + "<b>y</b>: " + this.posY;
+		posText.innerHTML = "<b>x</b>: " + this.posX + "<br>" + "<b>y</b>: " + this.posY + "<br>" + "<b>Location</b>: " + this.location;
 	}
 
 	updateStatsText() {
@@ -108,6 +125,9 @@ class Player {
 
 			if (getRandomInt(0, 100) < this.enemyEncounterRate) {
 				this.battle(getRandomEnemy());
+			}
+			else if (getRandomInt(0, 100) < this.caveEncounterRate) {
+				this.enterCave();
 			}
 		}
 	}
@@ -184,6 +204,20 @@ class Player {
             }, 1000);
 			this.updateStatsText();
         }
+	}
+
+	enterCave() {
+		var response = prompt("You found the entrance to a cave.\nDo you want to enter the cave?");
+		if (response.toLowerCase() == "no" || response == null) {
+			addToGameLogs("You avoided the cave.");
+		}
+		else {
+			addToGameLogs("You entered the cave.");
+			this.location = Locations.CAVE;
+			this.posX = 0;
+			this.posY = 0;
+			this.updatePosText();
+		}
 	}
 
 	equip(equipment) {
