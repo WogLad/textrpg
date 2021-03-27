@@ -79,6 +79,7 @@ class Player {
 
 		this.enemyEncounterRate = 10;
 		this.caveEncounterRate = 5;
+		this.oreFindRate = 15;
 
 		this.equipment = new EquipmentSlots();
 		this.skills = [
@@ -91,8 +92,14 @@ class Player {
 	}
 
 	updatePosText() {
-		var posText = document.getElementById("posText");
-		posText.innerHTML = "<b>x</b>: " + this.posX + "<br>" + "<b>y</b>: " + this.posY + "<br>" + "<b>Location</b>: " + this.location;
+		if (this.location == Locations.OVERWORLD) {
+			document.getElementById("posText").innerHTML = "<b>x</b>: " + this.posX + "<br>" + "<b>y</b>: " + this.posY + "<br>" + "<b>Location</b>: " + this.location;
+			document.getElementById("tpHomeButton").innerHTML = "Home Teleport";
+		}
+		else {
+			document.getElementById("posText").innerHTML = "<b>Location</b>: " + this.location;
+			document.getElementById("tpHomeButton").innerHTML = "Exit Cave";
+		}
 	}
 
 	updateStatsText() {
@@ -109,33 +116,51 @@ class Player {
 	updateSkillsText() {
 		document.getElementById("playerSkillsDiv").innerHTML = (
 			"<b><u>Skills:</u></b>" + "<br>" +
-			"Mining: " + this.skills[0].level + "<br>" + 
-			"Fishing: " + this.skills[1].level + "<br>" + 
-			"Woodcutting: " + this.skills[2].level + "<br>" + 
-			"Hunter: " + this.skills[3].level + "<br>" + 
-			"Farming: " + this.skills[4].level
+			"Mining: " + this.skills[0].level + " (" + this.skills[0].exp + "/" + this.skills[0].getExpForNextLevel() + ")" + "<br>" + 
+			"Fishing: " + this.skills[1].level + " (" + this.skills[1].exp + "/" + this.skills[1].getExpForNextLevel() + ")" + "<br>" + 
+			"Woodcutting: " + this.skills[2].level + " (" + this.skills[2].exp + "/" + this.skills[2].getExpForNextLevel() + ")" + "<br>" + 
+			"Hunter: " + this.skills[3].level + " (" + this.skills[3].exp + "/" + this.skills[3].getExpForNextLevel() + ")" + "<br>" + 
+			"Farming: " + this.skills[4].level + " (" + this.skills[4].exp + "/" + this.skills[4].getExpForNextLevel() + ")"
 		);
 	}
 
 	move(x, y) {
 		if (this.canMove) {
-			this.posX += (x * this.movementSpeed);
-			this.posY += (y * this.movementSpeed);
+			if (this.location == Locations.OVERWORLD) {
+				this.posX += (x * this.movementSpeed);
+				this.posY += (y * this.movementSpeed);
+				if (getRandomInt(0, 100) < this.enemyEncounterRate) {
+					this.battle(getRandomEnemy());
+				}
+				else if (getRandomInt(0, 100) < this.caveEncounterRate) {
+					this.enterCave();
+				}
+			}
+			else if (this.location == Locations.CAVE) {
+				if (getRandomInt(0, 100) < this.oreFindRate) {
+					var response = prompt("You found some ores.\nDo you want to mine it?");
+					if (response == null || response.toLowerCase() == "no") {this.updatePosText(); return;}
+					var oreFound = listOfOres[getRandomInt(0, listOfOres.length)];
+					var amountOfOresFound = getRandomInt(1, 4);
+					for (var i = 0; i < amountOfOresFound; i++) {
+						this.addToInventory(oreFound);
+					}
+					addToGameLogs("<span style='color: #00861d; font-weight:bold;'>You received " + amountOfOresFound + " " + oreFound.name + "!</span>");
+				}
+			}
 			this.updatePosText();
-
-			if (getRandomInt(0, 100) < this.enemyEncounterRate) {
-				this.battle(getRandomEnemy());
-			}
-			else if (getRandomInt(0, 100) < this.caveEncounterRate) {
-				this.enterCave();
-			}
 		}
 	}
 
 	tpHome() {
 		if (this.canMove) {
-			this.posX = 0;
-			this.posY = 0;
+			if (this.location == Locations.OVERWORLD) {
+				this.posX = 0;
+				this.posY = 0;
+			}
+			else if (this.location == Locations.CAVE) {
+				this.location = Locations.OVERWORLD;
+			}
 			this.updatePosText();
 		}
 	}
@@ -150,7 +175,7 @@ class Player {
 			finalDamage += (finalDamage * (this.critDamage/100));
 		}
         finalDamage = Math.floor(finalDamage);
-        addToGameLogs("You deal " + finalDamage.toString() + " damage to the enemy.");
+        addToGameLogs("<span style='color:#00861d;'>You deal " + finalDamage.toString() + " damage to the enemy.</span>");
 		enemyToAttack.takeDamage(finalDamage);
 		this.updateStatsText();
 	}
@@ -158,13 +183,13 @@ class Player {
 	die() {
 		this.tpHome();
 		this.currentHP = this.maxHP;
-		addToGameLogs("<span style='color:red;'>You died!</span>");
+		addToGameLogs("<span style='color:red;'><b>You died!</b></span>");
 		this.updateStatsText();
 	}
 
 	takeDamage(damageToTake) {
 		this.currentHP -= damageToTake;
-        addToGameLogs("You lost " + damageToTake.toString() + " HP.");
+        addToGameLogs("<span style='color:red'>You lost " + damageToTake.toString() + " HP.</span>");
 		this.updateStatsText();
 	}
 
@@ -208,14 +233,12 @@ class Player {
 
 	enterCave() {
 		var response = prompt("You found the entrance to a cave.\nDo you want to enter the cave?");
-		if (response.toLowerCase() == "no" || response == null) {
+		if (response == null || response.toLowerCase() == "no") {
 			addToGameLogs("You avoided the cave.");
 		}
 		else {
 			addToGameLogs("You entered the cave.");
 			this.location = Locations.CAVE;
-			this.posX = 0;
-			this.posY = 0;
 			this.updatePosText();
 		}
 	}
@@ -312,6 +335,7 @@ class Player {
         this.gold = saveData["gold"];
         this.posX = saveData["posX"];
         this.posY = saveData["posY"];
+		this.location = saveData["location"];
 		this.updatePosText();
 
         // Inventory Loading

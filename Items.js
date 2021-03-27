@@ -92,3 +92,10 @@ const itemDb = {
 	"adamant_boots": new Equipment("Copper Boots", "equipment", "feet", 12),
 	"obsidian_boots": new Equipment("Copper Boots", "equipment", "feet", 20),
 }
+
+const listOfOres = [
+	itemDb["copper_ore"],
+	itemDb["iron_ore"],
+	itemDb["mithril_ore"],
+	itemDb["adamant_ore"]
+]

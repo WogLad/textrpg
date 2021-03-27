@@ -38,7 +38,7 @@ class Enemy {
 		for (var i = 0; i < itemDropped["count"]; i++) {
 			player.addToInventory(itemDropped["item"]);
 		}
-		addToGameLogs("<span style='color: #00861d'>You received " + itemDropped["count"] + " " + itemDropped["item"].name + "!</span>");
+		addToGameLogs("<span style='color: #00861d; font-weight:bold;'>You received " + itemDropped["count"] + " " + itemDropped["item"].name + "!</span>");
 	}
 
 	takeDamage(damageToTake) {
