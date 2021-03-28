@@ -86,7 +86,7 @@ class Player {
 			new Skill("Mining", 99),
 			new Skill("Fishing", 99),
 			new Skill("Woodcutting", 99),
-			new Skill("Hunter", 99),
+			new Skill("Cooking", 99),
 			new Skill("Farming", 99)
 		]
 	}
