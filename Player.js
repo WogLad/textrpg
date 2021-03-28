@@ -116,11 +116,11 @@ class Player {
 	updateSkillsText() {
 		document.getElementById("playerSkillsDiv").innerHTML = (
 			"<b><u>Skills:</u></b>" + "<br>" +
-			"Mining: " + this.skills[0].level + " (" + this.skills[0].exp + "/" + this.skills[0].getExpForNextLevel() + ")" + "<br>" + 
-			"Fishing: " + this.skills[1].level + " (" + this.skills[1].exp + "/" + this.skills[1].getExpForNextLevel() + ")" + "<br>" + 
-			"Woodcutting: " + this.skills[2].level + " (" + this.skills[2].exp + "/" + this.skills[2].getExpForNextLevel() + ")" + "<br>" + 
-			"Hunter: " + this.skills[3].level + " (" + this.skills[3].exp + "/" + this.skills[3].getExpForNextLevel() + ")" + "<br>" + 
-			"Farming: " + this.skills[4].level + " (" + this.skills[4].exp + "/" + this.skills[4].getExpForNextLevel() + ")"
+			this.skills[0].name + ": " + this.skills[0].level + " (" + this.skills[0].exp + "/" + this.skills[0].getExpForNextLevel() + ")" + "<br>" + 
+			this.skills[1].name + ": " + this.skills[1].level + " (" + this.skills[1].exp + "/" + this.skills[1].getExpForNextLevel() + ")" + "<br>" + 
+			this.skills[2].name + ": " + this.skills[2].level + " (" + this.skills[2].exp + "/" + this.skills[2].getExpForNextLevel() + ")" + "<br>" + 
+			this.skills[3].name + ": " + this.skills[3].level + " (" + this.skills[3].exp + "/" + this.skills[3].getExpForNextLevel() + ")" + "<br>" + 
+			this.skills[4].name + ": " + this.skills[4].level + " (" + this.skills[4].exp + "/" + this.skills[4].getExpForNextLevel() + ")"
 		);
 	}
 
