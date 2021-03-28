@@ -48,7 +48,11 @@ class Skill {
 	}
 }
 
-const Locations = Object.freeze({"OVERWORLD":"Overworld", "CAVE":"Cave"});
+const Locations = Object.freeze({
+	"OVERWORLD": "Overworld",
+	"CAVE": "Cave",
+	"LAKE": "Lake"
+});
 
 class Player {
 	constructor(name) {
@@ -144,12 +148,20 @@ class Player {
 					var amountOfOresFound = getRandomInt(1, 4);
 					for (var i = 0; i < amountOfOresFound; i++) {
 						this.addToInventory(oreFound);
+						this.skills[0].addExp(oreFound.miningExpToReceive);
 					}
-					addToGameLogs("<span style='color: #00861d; font-weight:bold;'>You received " + amountOfOresFound + " " + oreFound.name + "!</span>");
+					addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You received " + amountOfOresFound + " " + oreFound.name + "!</span>");
+					addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (oreFound.miningExpToReceive*amountOfOresFound) + " Mining EXP in total!</span>");
+					this.updateSkillsText();
 				}
 			}
+			// else if ()
 			this.updatePosText();
 		}
+	}
+
+	interactWithWorld() {
+
 	}
 
 	tpHome() {
@@ -167,6 +179,10 @@ class Player {
 
 	addToInventory(item) {
 		this.inventory.push(item);
+	}
+
+	getInventory() {
+
 	}
 
 	attack(enemyToAttack) {
@@ -245,50 +261,53 @@ class Player {
 
 	equip(equipment) {
 		switch (equipment.type) {
-			case "head":
-				if (this.equipment.head == null) {
-					this.equipment.head = equipment;
-					this.defense += equipment.defenseBonus;
+			case "equipment":
+				switch(equipment.equipmentType) {
+					case "head":
+						if (this.equipment.head == null) {
+							this.equipment.head = equipment;
+							this.defense += equipment.defenseBonus;
+						}
+						else {
+							this.defense -= this.equipment.head.defenseBonus;
+							this.equipment.head = equipment;
+							this.defense += equipment.defenseBonus;
+						}
+						break;
+					case "chest":
+						if (this.equipment.chest == null) {
+							this.equipment.chest = equipment;
+							this.defense += equipment.defenseBonus;
+						}
+						else {
+							this.defense -= this.equipment.chest.defenseBonus;
+							this.equipment.chest = equipment;
+							this.defense += equipment.defenseBonus;
+						}
+						break;
+					case "legs":
+						if (this.equipment.legs == null) {
+							this.equipment.legs = equipment;
+							this.defense += equipment.defenseBonus;
+						}
+						else {
+							this.defense -= this.equipment.legs.defenseBonus;
+							this.equipment.legs = equipment;
+							this.defense += equipment.defenseBonus;
+						}
+						break;
+					case "feet":
+						if (this.equipment.feet == null) {
+							this.equipment.feet = equipment;
+							this.defense += equipment.defenseBonus;
+						}
+						else {
+							this.defense -= this.equipment.feet.defenseBonus;
+							this.equipment.feet = equipment;
+							this.defense += equipment.defenseBonus;
+						}
+						break;
 				}
-				else {
-					this.defense -= this.equipment.head.defenseBonus;
-					this.equipment.head = equipment;
-					this.defense += equipment.defenseBonus;
-				}
-				break;
-			case "chest":
-				if (this.equipment.chest == null) {
-					this.equipment.chest = equipment;
-					this.defense += equipment.defenseBonus;
-				}
-				else {
-					this.defense -= this.equipment.chest.defenseBonus;
-					this.equipment.chest = equipment;
-					this.defense += equipment.defenseBonus;
-				}
-				break;
-			case "legs":
-				if (this.equipment.legs == null) {
-					this.equipment.legs = equipment;
-					this.defense += equipment.defenseBonus;
-				}
-				else {
-					this.defense -= this.equipment.legs.defenseBonus;
-					this.equipment.legs = equipment;
-					this.defense += equipment.defenseBonus;
-				}
-				break;
-			case "feet":
-				if (this.equipment.feet == null) {
-					this.equipment.feet = equipment;
-					this.defense += equipment.defenseBonus;
-				}
-				else {
-					this.defense -= this.equipment.feet.defenseBonus;
-					this.equipment.feet = equipment;
-					this.defense += equipment.defenseBonus;
-				}
-				break;
 			case "tool":
 				if (this.equipment.tool == null) {
 					this.equipment.tool = equipment;
@@ -357,6 +376,14 @@ class Player {
 					case "equipment":
 						var armor = new Equipment(item["name"], "equipment", item["equipmentType"], item["defenseBonus"]);
 						this.inventory.push(armor);
+						break;
+					case "food":
+						var food = new Food(item["name"], "food", item["hpReceived"], item["canBeCooked"], item["cookedVersion"]);
+						this.inventory.push(food);
+						break;
+					case "ore":
+						var ore = new Ore(item["name"], "ore", item["miningExpToReceive"]);
+						this.inventory.push(ore);
 						break;
 				}
 			}

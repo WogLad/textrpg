@@ -30,12 +30,28 @@ class Equipment extends Item {
 	}
 }
 
+class Ore extends Item {
+	constructor(name, type, miningExpToReceive) {
+		super(name, type);
+		this.miningExpToReceive = miningExpToReceive;
+	}
+}
+
+class Food extends Item {
+	constructor(name, type, hpReceived, canBeCooked, cookedVersion) {
+		super(name, type);
+		this.hpReceived = hpReceived;
+		this.canBeCooked = canBeCooked;
+		this.cookedVersion = cookedVersion;
+ 	}
+}
+
 const itemDb = {
 	// Ores
-	"copper_ore": new Item("Copper Ore", "item"),
-	"iron_ore": new Item("Iron Ore", "item"),
-	"mithril_ore": new Item("Mithril Ore", "item"),
-	"adamant_ore": new Item("Adamant Ore", "item"),
+	"copper_ore": new Ore("Copper Ore", "ore", 20),
+	"iron_ore": new Ore("Iron Ore", "ore", 35),
+	"mithril_ore": new Ore("Mithril Ore", "ore", 80),
+	"adamant_ore": new Ore("Adamant Ore", "ore", 95),
 
 	// Enemy Loot
 	"bones": new Item("Bones", "item"),
@@ -91,6 +107,12 @@ const itemDb = {
 	"mithril_boots": new Equipment("Copper Boots", "equipment", "feet", 10),
 	"adamant_boots": new Equipment("Copper Boots", "equipment", "feet", 12),
 	"obsidian_boots": new Equipment("Copper Boots", "equipment", "feet", 20),
+
+	// Food
+	"cooked_sardine": new Food("Cooked Sardine", "food", 4, false, null),
+	"raw_sardine": new Food("Raw Sardine", "food", 0, true, new Food("Cooked Sardine", "food", 4, false, null)),
+	"cooked_shrimp": new Food("Cooked Shrimp", "food", 3, false, null),
+	"raw_shrimp": new Food("Raw Shrimp", "food", 0, true, new Food("Cooked Shrimp", "food", 3, false, null)),
 }
 
 const listOfOres = [
@@ -98,4 +120,9 @@ const listOfOres = [
 	itemDb["iron_ore"],
 	itemDb["mithril_ore"],
 	itemDb["adamant_ore"]
+]
+
+const listOfFishableItems = [
+	itemDb["raw_sardine"],
+	itemDb["raw_shrimp"]
 ]
