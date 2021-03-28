@@ -92,5 +92,6 @@ const enemyDb = {
 function getRandomEnemy() {
 	var enemyList = Object.keys(enemyDb);
 	var randomEnemy = enemyDb[enemyList[getRandomInt(0, enemyList.length)]];
-	return randomEnemy;
+	var enemyToReturn = new Enemy(randomEnemy.name, randomEnemy.encounterMessage, randomEnemy.damage, randomEnemy.maxHP, randomEnemy.lootTable);
+	return enemyToReturn;
 }
