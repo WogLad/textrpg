@@ -144,15 +144,7 @@ class Player {
 				if (getRandomInt(0, 100) < this.oreFindRate) {
 					var response = prompt("You found some ores.\nDo you want to mine it?");
 					if (response == null || response.toLowerCase() == "no") {this.updatePosText(); return;}
-					var oreFound = listOfOres[getRandomInt(0, listOfOres.length)];
-					var amountOfOresFound = getRandomInt(1, 4);
-					for (var i = 0; i < amountOfOresFound; i++) {
-						this.addToInventory(oreFound);
-						this.skills[0].addExp(oreFound.miningExpToReceive);
-					}
-					addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You received " + amountOfOresFound + " " + oreFound.name + "!</span>");
-					addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (oreFound.miningExpToReceive*amountOfOresFound) + " Mining EXP in total!</span>");
-					this.updateSkillsText();
+					this.mine();
 				}
 			}
 			// else if ()
@@ -161,7 +153,7 @@ class Player {
 	}
 
 	interactWithWorld() {
-
+		alert("This doesn't do anything right now.");
 	}
 
 	tpHome() {
@@ -257,6 +249,18 @@ class Player {
 			this.location = Locations.CAVE;
 			this.updatePosText();
 		}
+	}
+
+	mine() {
+		var oreFound = listOfOres[getRandomInt(0, listOfOres.length)];
+		var amountOfOresFound = getRandomInt(1, 4);
+		for (var i = 0; i < amountOfOresFound; i++) {
+			this.addToInventory(oreFound);
+			this.skills[0].addExp(oreFound.miningExpToReceive);
+		}
+		addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You received " + amountOfOresFound + " " + oreFound.name + "!</span>");
+		addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (oreFound.miningExpToReceive*amountOfOresFound) + " Mining EXP in total!</span>");
+		this.updateSkillsText();
 	}
 
 	equip(equipment) {
