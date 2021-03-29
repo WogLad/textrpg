@@ -90,6 +90,8 @@ class Player {
 		this.fishCatchRate = 25;
 		this.canFish = true;
 
+		this.treeFindRate = 5;
+
 		this.equipment = new EquipmentSlots();
 		this.skills = [
 			new Skill("Mining", 99),
@@ -153,6 +155,11 @@ class Player {
 					}
 					else if (getRandomInt(0, 100) < this.lakeFindRate) {
 						this.findLake();
+					}
+					else if (getRandomInt(0, 100) < this.treeFindRate) {
+						var response = prompt("You see a tree.\nDo you want to cut it down?");
+						if (response == null || response.toLowerCase() == "no") {addToGameLogs("You avoided the tree."); this.updatePosText(); return;}
+						this.woodcut();
 					}
 					break;
 				case Locations.CAVE:
@@ -319,6 +326,20 @@ class Player {
 		addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You fished 1 " + fishFound.fishObj.name + "!</span>");
 		addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (fishFound.fishingExp) + " Fishing EXP!</span>");
 		this.updateSkillsText();
+	}
+
+	woodcut() {
+		addToGameLogs("You begin cutting down the tree...");
+		setTimeout(() => {
+			var amountOfWoodReceived = getRandomInt(1, 4);
+			for (var i = 0; i < amountOfWoodReceived; i++) {
+				this.addToInventory(itemDb["wood"]);
+				this.skills[2].addExp(25);
+			}
+			addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You cut down a tree and received " + amountOfWoodReceived + " " + "Wood" + "!</span>");
+			addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (25*amountOfWoodReceived) + " Woodcutting EXP in total!</span>");
+			this.updateSkillsText();
+		}, 1000);
 	}
 
 	equip(equipment) {

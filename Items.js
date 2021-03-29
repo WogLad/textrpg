@@ -47,6 +47,8 @@ class Food extends Item {
 }
 
 const itemDb = {
+	"wood": new Item("Wood", "item"),
+
 	// Ores
 	"copper_ore": new Ore("Copper Ore", "ore", 20),
 	"iron_ore": new Ore("Iron Ore", "ore", 35),
