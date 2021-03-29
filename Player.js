@@ -82,8 +82,13 @@ class Player {
 		this.canMove = true;
 
 		this.enemyEncounterRate = 10;
+
 		this.caveEncounterRate = 5;
 		this.oreFindRate = 15;
+
+		this.lakeFindRate = 5;
+		this.fishCatchRate = 25;
+		this.canFish = true;
 
 		this.equipment = new EquipmentSlots();
 		this.skills = [
@@ -96,13 +101,19 @@ class Player {
 	}
 
 	updatePosText() {
-		if (this.location == Locations.OVERWORLD) {
-			document.getElementById("posText").innerHTML = "<b>x</b>: " + this.posX + "<br>" + "<b>y</b>: " + this.posY + "<br>" + "<b>Location</b>: " + this.location;
-			document.getElementById("tpHomeButton").innerHTML = "Home Teleport";
-		}
-		else {
-			document.getElementById("posText").innerHTML = "<b>Location</b>: " + this.location;
-			document.getElementById("tpHomeButton").innerHTML = "Exit Cave";
+		switch (this.location) {
+			case Locations.OVERWORLD:
+				document.getElementById("posText").innerHTML = "<b>x</b>: " + this.posX + "<br>" + "<b>y</b>: " + this.posY + "<br>" + "<b>Location</b>: " + this.location;
+				document.getElementById("tpHomeButton").innerHTML = "Home Teleport";
+				break;
+			case Locations.CAVE:
+				document.getElementById("posText").innerHTML = "<b>Location</b>: " + this.location;
+				document.getElementById("tpHomeButton").innerHTML = "Exit Cave";
+				break;
+			case Locations.LAKE:
+				document.getElementById("posText").innerHTML = "<b>Location</b>: " + this.location;
+				document.getElementById("tpHomeButton").innerHTML = "Leave Lake";
+				break;
 		}
 	}
 
@@ -130,40 +141,66 @@ class Player {
 
 	move(x, y) {
 		if (this.canMove) {
-			if (this.location == Locations.OVERWORLD) {
-				this.posX += (x * this.movementSpeed);
-				this.posY += (y * this.movementSpeed);
-				if (getRandomInt(0, 100) < this.enemyEncounterRate) {
-					this.battle(getRandomEnemy());
-				}
-				else if (getRandomInt(0, 100) < this.caveEncounterRate) {
-					this.enterCave();
-				}
+			switch(this.location) {
+				case Locations.OVERWORLD:
+					this.posX += (x * this.movementSpeed);
+					this.posY += (y * this.movementSpeed);
+					if (getRandomInt(0, 100) < this.enemyEncounterRate) {
+						this.battle(getRandomEnemy());
+					}
+					else if (getRandomInt(0, 100) < this.caveEncounterRate) {
+						this.enterCave();
+					}
+					else if (getRandomInt(0, 100) < this.lakeFindRate) {
+						this.findLake();
+					}
+					break;
+				case Locations.CAVE:
+					if (getRandomInt(0, 100) < this.oreFindRate) {
+						var response = prompt("You found some ores.\nDo you want to mine it?");
+						if (response == null || response.toLowerCase() == "no") {this.updatePosText(); return;}
+						this.mine();
+					}
+					break;
 			}
-			else if (this.location == Locations.CAVE) {
-				if (getRandomInt(0, 100) < this.oreFindRate) {
-					var response = prompt("You found some ores.\nDo you want to mine it?");
-					if (response == null || response.toLowerCase() == "no") {this.updatePosText(); return;}
-					this.mine();
-				}
-			}
-			// else if ()
-			this.updatePosText();
 		}
+		this.updatePosText();
 	}
 
 	interactWithWorld() {
-		alert("This doesn't do anything right now.");
+		if (this.location == Locations.LAKE) {
+			if (this.canFish) {
+				this.canFish = false;
+				addToGameLogs("You try to fish in the lake...");
+				setTimeout(() => {
+					if (getRandomInt(0, 100) < this.fishCatchRate) {
+						this.fish();
+					}
+					else {
+						addToGameLogs("<span style='color: red'>You failed to catch anything!</span>");
+					}
+					this.canFish = true;
+				}, 1000);
+			}
+		}
+		else {
+			alert("This doesn't do anything right now.");
+		}
 	}
 
 	tpHome() {
 		if (this.canMove) {
-			if (this.location == Locations.OVERWORLD) {
-				this.posX = 0;
-				this.posY = 0;
-			}
-			else if (this.location == Locations.CAVE) {
-				this.location = Locations.OVERWORLD;
+			switch (this.location) {
+				case Locations.OVERWORLD:
+					this.posX = 0;
+					this.posY = 0;
+					break;
+				case Locations.CAVE:
+					this.location = Locations.OVERWORLD;
+					break;
+				case Locations.LAKE:
+					this.location = Locations.OVERWORLD;
+					break;
 			}
 			this.updatePosText();
 		}
@@ -258,8 +295,29 @@ class Player {
 			this.addToInventory(oreFound);
 			this.skills[0].addExp(oreFound.miningExpToReceive);
 		}
-		addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You received " + amountOfOresFound + " " + oreFound.name + "!</span>");
+		addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You mined " + amountOfOresFound + " " + oreFound.name + "!</span>");
 		addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (oreFound.miningExpToReceive*amountOfOresFound) + " Mining EXP in total!</span>");
+		this.updateSkillsText();
+	}
+
+	findLake() {
+		var response = prompt("You find a lake.\nDo you want to fish there?");
+		if (response == null || response.toLowerCase() == "no") {
+			addToGameLogs("You avoided the lake.");
+		}
+		else {
+			addToGameLogs("You sat near the lake.");
+			this.location = Locations.LAKE;
+			this.updatePosText();
+		}
+	}
+
+	fish() {
+		var fishFound = listOfFishableItems[getRandomInt(0, listOfFishableItems.length)];
+		this.addToInventory(fishFound.fishObj);
+		this.skills[1].addExp(fishFound.fishingExp);
+		addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You fished 1 " + fishFound.fishObj.name + "!</span>");
+		addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (fishFound.fishingExp) + " Fishing EXP!</span>");
 		this.updateSkillsText();
 	}
 

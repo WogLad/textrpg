@@ -123,6 +123,6 @@ const listOfOres = [
 ]
 
 const listOfFishableItems = [
-	itemDb["raw_sardine"],
-	itemDb["raw_shrimp"]
+	{"fishObj": itemDb["raw_sardine"], "fishingExp": 20},
+	{"fishObj": itemDb["raw_shrimp"], "fishingExp": 10}
 ]
