@@ -14,9 +14,11 @@ class LootTable {
 			}
 		});
 		if (itemToReturn != null) {
+			var count = getRandomInt(itemDataFromLootTable["minimum_quantity"], (itemDataFromLootTable["maximum_quantity"]+1));
+			// console.log(count);
 			return {
 				"item": itemToReturn,
-				"count": getRandomInt(itemDataFromLootTable["minimum_quantity"], (itemDataFromLootTable["maximum_quantity"]+1))
+				"count": count
 			};
 		}
 		else {
@@ -40,12 +42,12 @@ class Enemy {
 	die() {
 		addToGameLogs("<span style='color:red;'>You killed the enemy!</span>");
 		this.lootTables.forEach(lootTable => {
-			if (lootTable.getLoot() != null) {
-				var itemDropped = lootTable.getLoot();
-				for (var i = 0; i < itemDropped["count"]; i++) {
-					player.addToInventory(itemDropped["item"]);
+			var loot = lootTable.getLoot();
+			if (loot != null) {
+				for (var i = 0; i < loot["count"]; i++) {
+					player.addToInventory(loot["item"]);
 				}
-				addToGameLogs("<span style='color: #00861d; font-weight:bold;'>You received " + itemDropped["count"] + " " + itemDropped["item"].name + "!</span>");
+				addToGameLogs("<span style='color: #00861d; font-weight:bold;'>You received " + loot["count"] + " " + loot["item"].name + "!</span>");
 			}
 		});
 	}

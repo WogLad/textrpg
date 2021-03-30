@@ -157,15 +157,11 @@ class Player {
 						this.findLake();
 					}
 					else if (getRandomInt(0, 100) < this.treeFindRate) {
-						var response = prompt("You see a tree.\nDo you want to cut it down?");
-						if (response == null || response.toLowerCase() == "no") {addToGameLogs("You avoided the tree."); this.updatePosText(); return;}
 						this.woodcut();
 					}
 					break;
 				case Locations.CAVE:
 					if (getRandomInt(0, 100) < this.oreFindRate) {
-						var response = prompt("You found some ores.\nDo you want to mine it?");
-						if (response == null || response.toLowerCase() == "no") {this.updatePosText(); return;}
 						this.mine();
 					}
 					break;
@@ -176,19 +172,7 @@ class Player {
 
 	interactWithWorld() {
 		if (this.location == Locations.LAKE) {
-			if (this.canFish) {
-				this.canFish = false;
-				addToGameLogs("You try to fish in the lake...");
-				setTimeout(() => {
-					if (getRandomInt(0, 100) < this.fishCatchRate) {
-						this.fish();
-					}
-					else {
-						addToGameLogs("<span style='color: red'>You failed to catch anything!</span>");
-					}
-					this.canFish = true;
-				}, 1000);
-			}
+			this.fish();
 		}
 		else {
 			alert("This doesn't do anything right now.");
@@ -296,6 +280,11 @@ class Player {
 	}
 
 	mine() {
+		var response = prompt("You found some ores.\nDo you want to mine it?");
+		if (response == null || response.toLowerCase() == "no") {
+			this.updatePosText();
+			return;
+		}
 		var oreFound = listOfOres[getRandomInt(0, listOfOres.length)];
 		var amountOfOresFound = getRandomInt(1, 4);
 		for (var i = 0; i < amountOfOresFound; i++) {
@@ -320,15 +309,33 @@ class Player {
 	}
 
 	fish() {
-		var fishFound = listOfFishableItems[getRandomInt(0, listOfFishableItems.length)];
-		this.addToInventory(fishFound.fishObj);
-		this.skills[1].addExp(fishFound.fishingExp);
-		addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You fished 1 " + fishFound.fishObj.name + "!</span>");
-		addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (fishFound.fishingExp) + " Fishing EXP!</span>");
-		this.updateSkillsText();
+		if (this.canFish) {
+			this.canFish = false;
+			addToGameLogs("You try to fish in the lake...");
+			setTimeout(() => {
+				if (getRandomInt(0, 100) < this.fishCatchRate) {
+					var fishFound = listOfFishableItems[getRandomInt(0, listOfFishableItems.length)];
+					this.addToInventory(fishFound.fishObj);
+					this.skills[1].addExp(fishFound.fishingExp);
+					addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You fished 1 " + fishFound.fishObj.name + "!</span>");
+					addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + (fishFound.fishingExp) + " Fishing EXP!</span>");
+					this.updateSkillsText();
+				}
+				else {
+					addToGameLogs("<span style='color: red'>You failed to catch anything!</span>");
+				}
+				this.canFish = true;
+			}, 1000);
+		}
 	}
 
 	woodcut() {
+		var response = prompt("You see a tree.\nDo you want to cut it down?");
+		if (response == null || response.toLowerCase() == "no") {
+			addToGameLogs("You avoided the tree.");
+			this.updatePosText();
+			return;
+		}
 		addToGameLogs("You begin cutting down the tree...");
 		setTimeout(() => {
 			var amountOfWoodReceived = getRandomInt(1, 4);
