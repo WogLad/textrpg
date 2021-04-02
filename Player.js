@@ -349,6 +349,19 @@ class Player {
 		}, 1000);
 	}
 
+	cook() {
+		var foodToCookSelectMenu = document.getElementById("food-to-cook-select-menu");
+		var itemToCook = itemDb[foodToCookSelectMenu.value]
+		if (this.inventory.includes(itemToCook) == true) {
+			this.inventory = removeFromArray(this.inventory, itemToCook)
+			this.addToInventory(itemToCook.cookedVersion);
+			addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You successfully cooked the " + itemToCook.name + "!</span>");
+		}
+		else {
+			addToGameLogs("<span style='color: red; font-weight: bold;'>You don't have any " + itemToCook.name + " in your inventory to cook.</span>");
+		}
+	}
+
 	equip(equipment) {
 		switch (equipment.type) {
 			case "equipment":
@@ -450,32 +463,7 @@ class Player {
         // Inventory Loading
 		saveData["inventory"].forEach(item => {
 			if (item != null) {
-				switch (item["type"]) {
-					case "item":
-						var newItem = new Item(item["name"], "item");
-						this.inventory.push(newItem);
-						break;
-					case "tool":
-						var tool = new Tool(item["name"], "tool", item["axePower"], item["pickaxePower"]);
-						this.inventory.push(tool);
-						break;
-					case "weapon":
-						var weapon = new Weapon(item["name"], "weapon", item["weaponPower"], item["critRate"], item["critDamage"]);
-						this.inventory.push(weapon);
-						break;
-					case "equipment":
-						var armor = new Equipment(item["name"], "equipment", item["equipmentType"], item["defenseBonus"]);
-						this.inventory.push(armor);
-						break;
-					case "food":
-						var food = new Food(item["name"], "food", item["hpReceived"], item["canBeCooked"], item["cookedVersion"]);
-						this.inventory.push(food);
-						break;
-					case "ore":
-						var ore = new Ore(item["name"], "ore", item["miningExpToReceive"]);
-						this.inventory.push(ore);
-						break;
-				}
+				this.inventory.push(itemDb[item["id"]]);
 			}
 		});
 

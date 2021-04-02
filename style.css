@@ -33,6 +33,12 @@ button:active {
     box-shadow: none;
 }
 
+select {
+    background-color: rgb(102, 102, 102);
+    color: rgb(232, 232, 232);
+    padding: 5px 5px;
+}
+
 .block_container {
     text-align: left;
 }
@@ -46,4 +52,63 @@ button:active {
     padding: 5px;
     border-radius: 5px;
     border: 5px solid rgb(25, 25, 25);
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px rgb(38, 38, 38);
+    border-radius: 5px;
+    z-index: 10;
+    background-color: rgb(70, 70, 70);
+    width: 750px;
+    max-width: 80%;
+    display: none;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-header .close-button {
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.modal-body {
+    padding: 10px 15px;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
 }
