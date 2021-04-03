@@ -201,8 +201,13 @@ class Player {
 		this.inventory.push(item);
 	}
 
-	getInventory() {
-
+	updateInventoryTextDiv() {
+		var inventoryDivTextArea = document.getElementById("inventory-div-textarea");
+		var inventoryText = this.inventory[0].name;
+		for (var i = 1; i < this.inventory.length; i++) {
+			inventoryText += "<br>" + this.inventory[i].name;
+		}
+		inventoryDivTextArea.innerHTML = inventoryText;
 	}
 
 	attack(enemyToAttack) {

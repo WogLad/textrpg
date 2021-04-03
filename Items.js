@@ -85,10 +85,10 @@ const itemDb = {
 
 	// Armor (Head)
 	"copper_helmet": new Equipment("copper_helmet", "Copper Helmet", "equipment", "head", 3),
-	"iron_helmet": new Equipment("iron_helmet", "Copper Helmet", "equipment", "head", 5),
-	"mithril_helmet": new Equipment("mithril_helmet", "Copper Helmet", "equipment", "head", 11),
-	"adamant_helmet": new Equipment("adamant_helmet", "Copper Helmet", "equipment", "head", 16),
-	"obsidian_helmet": new Equipment("obsidian_helmet", "Copper Helmet", "equipment", "head", 26),
+	"iron_helmet": new Equipment("iron_helmet", "Iron Helmet", "equipment", "head", 5),
+	"mithril_helmet": new Equipment("mithril_helmet", "Mithril Helmet", "equipment", "head", 11),
+	"adamant_helmet": new Equipment("adamant_helmet", "Adamant Helmet", "equipment", "head", 16),
+	"obsidian_helmet": new Equipment("obsidian_helmet", "Obsidian Helmet", "equipment", "head", 26),
 
 	// Armor (Chest)
 	"copper_chestplate": new Equipment("copper_chestplate", "Copper Chestplate", "equipment", "chest", 9),
@@ -106,16 +106,16 @@ const itemDb = {
 
 	// Armor (Feet)
 	"copper_boots": new Equipment("copper_boots", "Copper Boots", "equipment", "feet", 3),
-	"iron_boots": new Equipment("iron_boots", "Copper Boots", "equipment", "feet", 4),
-	"mithril_boots": new Equipment("mithril_boots", "Copper Boots", "equipment", "feet", 10),
-	"adamant_boots": new Equipment("adamant_boots", "Copper Boots", "equipment", "feet", 12),
-	"obsidian_boots": new Equipment("obsidian_boots", "Copper Boots", "equipment", "feet", 20),
+	"iron_boots": new Equipment("iron_boots", "Iron Boots", "equipment", "feet", 4),
+	"mithril_boots": new Equipment("mithril_boots", "Mithril Boots", "equipment", "feet", 10),
+	"adamant_boots": new Equipment("adamant_boots", "Adamant Boots", "equipment", "feet", 12),
+	"obsidian_boots": new Equipment("obsidian_boots", "Obsidian Boots", "equipment", "feet", 20),
 
 	// Food
 	"cooked_sardine": new Food("cooked_sardine", "Cooked Sardine", "food", 4, false, null),
-	"raw_sardine": new Food("raw_sardine", "Raw Sardine", "food", 0, true, new Food("Cooked Sardine", "food", 4, false, null)),
+	"raw_sardine": new Food("raw_sardine", "Raw Sardine", "food", 0, true, new Food("cooked_sardine", "Cooked Sardine", "food", 4, false, null)),
 	"cooked_shrimp": new Food("cooked_shrimp", "Cooked Shrimp", "food", 3, false, null),
-	"raw_shrimp": new Food("raw_shrimp", "Raw Shrimp", "food", 0, true, new Food("Cooked Shrimp", "food", 3, false, null)),
+	"raw_shrimp": new Food("raw_shrimp", "Raw Shrimp", "food", 0, true, new Food("cooked_shrimp", "Cooked Shrimp", "food", 3, false, null)),
 }
 
 const listOfOres = [

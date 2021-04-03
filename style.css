@@ -112,3 +112,14 @@ select {
     opacity: 1;
     pointer-events: all;
 }
+
+div.scroll {
+    margin: 4px, 4px;
+    padding: 4px;
+    background-color: rgb(25, 25, 25);
+    width: 500px;
+    height: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+}

@@ -59,6 +59,17 @@
 			</div>
 		</div>
 
+		<button style="transform: translateY(-80px);" data-modal-target="#inventory-div" onclick="player.updateInventoryTextDiv();">Open Inventory</button>
+		<div class="modal" id="inventory-div">
+			<div class="modal-header">
+				<div class="title">Inventory</div>
+				<button data-close-button class="close-button">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div id="inventory-div-textarea" class="scroll"></div>
+			</div>
+		</div>
+
 		<br>
 		<br>
 		
