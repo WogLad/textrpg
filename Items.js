@@ -129,3 +129,8 @@ const listOfFishableItems = [
 	{"fishObj": itemDb["raw_sardine"], "fishingExp": 20},
 	{"fishObj": itemDb["raw_shrimp"], "fishingExp": 10}
 ]
+
+const expForCookingRawFoodTable = {
+	"raw_shrimp": 30,
+	"raw_sardine": 40
+}

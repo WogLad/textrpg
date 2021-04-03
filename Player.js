@@ -355,6 +355,8 @@ class Player {
 		if (this.inventory.includes(itemToCook) == true) {
 			this.inventory = removeFromArray(this.inventory, itemToCook)
 			this.addToInventory(itemToCook.cookedVersion);
+			this.skills[3].addExp(expForCookingRawFoodTable[itemToCook.id]);
+			addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + expForCookingRawFoodTable[itemToCook.id] + " Cooking EXP!</span>");
 			addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You successfully cooked the " + itemToCook.name + "!</span>");
 		}
 		else {
