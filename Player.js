@@ -208,6 +208,45 @@ class Player {
 			inventoryText += "<br>" + this.inventory[i].name;
 		}
 		inventoryDivTextArea.innerHTML = inventoryText;
+		// Add the code to update the 'equipment-div-textarea' text for the equipment text.
+		var equipmentText = "<strong><u>Equipment</u></strong><br><br>";
+		if (this.equipment.head != null) {
+			equipmentText += "<b>Head:</b> " + this.equipment.head.name + "<br>";
+		}
+		else {
+			equipmentText += "<b>Head:</b> " + "Empty<br>";
+		}
+		if (this.equipment.chest != null) {
+			equipmentText += "<b>Chest</b>: " + this.equipment.chest.name + "<br>";
+		}
+		else {
+			equipmentText += "<b>Chest:</b> " + "Empty<br>";
+		}
+		if (this.equipment.legs != null) {
+			equipmentText += "<b>Legs</b>: " + this.equipment.legs.name + "<br>";
+		}
+		else {
+			equipmentText += "<b>Legs:</b> " + "Empty<br>";
+		}
+		if (this.equipment.feet != null) {
+			equipmentText += "<b>Feet</b>: " + this.equipment.feet.name + "<br>";
+		}
+		else {
+			equipmentText += "<b>Feet:</b> " + "Empty<br>";
+		}
+		if (this.equipment.weapon != null) {
+			equipmentText += "<b>Weapon</b>: " + this.equipment.weapon.name + "<br>";
+		}
+		else {
+			equipmentText += "<b>Weapon:</b> " + "Empty<br>";
+		}
+		if (this.equipment.tool != null) {
+			equipmentText += "<b>Tool</b>: " + this.equipment.tool.name;
+		}
+		else {
+			equipmentText += "<b>Tool:</b> " + "Empty<br>";
+		}
+		document.getElementById("equipment-div-textarea").innerHTML = equipmentText;
 	}
 
 	attack(enemyToAttack) {
@@ -486,38 +525,32 @@ class Player {
         // Equipment Loading
 		var headData = saveData["equipment"]["head"];
 		if (headData != null) {
-			var headObj = new Equipment(headData["name"], headData["type"], headData["equipmentType"], headData["defenseBonus"]);
-			this.equip(headObj);
+			this.equip(itemDb[headData["id"]]);
 		}
 		
 		var chestData = saveData["equipment"]["chest"];
 		if (chestData != null) {
-			var chestObj = new Equipment(chestData["name"], chestData["type"], chestData["equipmentType"], chestData["defenseBonus"]);
-			this.equip(chestObj);
+			this.equip(itemDb[chestData["id"]]);
 		}
 		
 		var legsData = saveData["equipment"]["legs"];
 		if (legsData != null) {
-			var legsObj = new Equipment(legsData["name"], legsData["type"], legsData["equipmentType"], legsData["defenseBonus"]);
-			this.equip(legsObj);
+			this.equip(itemDb[legsData["id"]]);
 		}
 		
 		var feetData = saveData["equipment"]["feet"];
 		if (feetData != null) {
-			var feetObj = new Equipment(feetData["name"], feetData["type"], feetData["equipmentType"], feetData["defenseBonus"]);
-			this.equip(feetObj);
+			this.equip(itemDb[feetData["id"]]);
 		}
 		
 		var weaponData = saveData["equipment"]["weapon"];
 		if (weaponData != null) {
-			var weaponObj = new Weapon(weaponData["name"], weaponData["type"], weaponData["weaponPower"], weaponData["critRate"], weaponData["critDamage"]);
-			this.equip(weaponObj);
+			this.equip(itemDb[weaponData["id"]]);
 		}
 		
 		var toolData = saveData["equipment"]["tool"];
 		if (toolData != null) {
-			var toolObj = new Tool(toolData["name"], toolData["type"], toolData["axePower"], toolData["pickaxePower"]);
-			this.equip(toolObj);
+			this.equip(itemDb[toolData["id"]]);
 		}
 
 		// Player Stats Loading
