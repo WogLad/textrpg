@@ -461,7 +461,7 @@ class Player {
 				if (this.equipment.tool == null) {
 					this.equipment.tool = equipment;
 					this.pickaxePower += equipment.pickaxePower;
-					this.pickaxePower += equipment.axePower;
+					this.axePower += equipment.axePower;
 				}
 				else {
 					this.pickaxePower -= this.equipment.tool.pickaxePower;
