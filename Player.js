@@ -98,7 +98,7 @@ class Player {
 			new Skill("Fishing", 99),
 			new Skill("Woodcutting", 99),
 			new Skill("Cooking", 99),
-			new Skill("Farming", 99)
+			new Skill("Smithing", 99)
 		]
 	}
 
@@ -397,7 +397,7 @@ class Player {
 		var foodToCookSelectMenu = document.getElementById("food-to-cook-select-menu");
 		var itemToCook = itemDb[foodToCookSelectMenu.value]
 		if (this.inventory.includes(itemToCook) == true) {
-			this.inventory = removeFromArray(this.inventory, itemToCook)
+			this.inventory = removeFromArray(this.inventory, itemToCook);
 			this.addToInventory(itemToCook.cookedVersion);
 			this.skills[3].addExp(expForCookingRawFoodTable[itemToCook.id]);
 			addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + expForCookingRawFoodTable[itemToCook.id] + " Cooking EXP!</span>");
@@ -405,6 +405,20 @@ class Player {
 		}
 		else {
 			addToGameLogs("<span style='color: red; font-weight: bold;'>You don't have any " + itemToCook.name + " in your inventory to cook.</span>");
+		}
+	}
+
+	smithOre() {
+		var oreToSmith = itemDb[document.getElementById("ores-to-smith-select-menu").value];
+		if (this.inventory.includes(oreToSmith) == true) {
+			this.inventory = removeFromArray(this.inventory, oreToSmith);
+			var barObtained = oreToBar[oreToSmith.id];
+			this.addToInventory(barObtained);
+			this.skills[4].addExp(barObtained.smithingExpToReceive);
+			addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + barObtained.smithingExpToReceive + " Smithing EXP!</span>");
+		}
+		else {
+			addToGameLogs("<span style='color: red; font-weight: bold;'>You don't have any " + oreToSmith.name + " in your inventory to smith.</span>");
 		}
 	}
 

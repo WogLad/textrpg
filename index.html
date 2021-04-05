@@ -73,6 +73,30 @@
 			</div>
 		</div>
 
+		<button style="transform: translateY(-80px);" data-modal-target="#smithing-menu">Open Smithing Menu</button>
+		<div class="modal" id="smithing-menu">
+			<div class="modal-header">
+				<div class="title">Smithing Menu</div>
+				<button data-close-button class="close-button">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p style="font-size: 13px;">
+					This is the smithing menu where you will convert the ores you mined to get bars and get Smithing EXP for doing so.
+					<br>
+					You can then use those bars to make other items like weapons, tools, armor, etc.
+				</p>
+				<select name="ores-to-smith" id="ores-to-smith-select-menu">
+					<option value="copper_ore">Copper Ore</option>
+					<option value="iron_ore">Iron Ore</option>
+					<option value="mithril_ore">Mithril Ore</option>
+					<option value="adamant_ore">Adamant Ore</option>
+				</select>
+				<br>
+				<br>
+				<button onclick="player.smithOre();" style="transform: translateY(-10px);">SMITH</button>
+			</div>
+		</div>
+
 		<br>
 		<br>
 		

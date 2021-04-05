@@ -38,6 +38,13 @@ class Ore extends Item {
 	}
 }
 
+class Bar extends Item {
+	constructor(id, name, type, smithingExpToReceive) {
+		super(id, name, type);
+		this.smithingExpToReceive = smithingExpToReceive;
+	}
+}
+
 class Food extends Item {
 	constructor(id, name, type, hpReceived, canBeCooked, cookedVersion) {
 		super(id, name, type);
@@ -116,6 +123,12 @@ const itemDb = {
 	"raw_sardine": new Food("raw_sardine", "Raw Sardine", "food", 0, true, new Food("cooked_sardine", "Cooked Sardine", "food", 4, false, null)),
 	"cooked_shrimp": new Food("cooked_shrimp", "Cooked Shrimp", "food", 3, false, null),
 	"raw_shrimp": new Food("raw_shrimp", "Raw Shrimp", "food", 0, true, new Food("cooked_shrimp", "Cooked Shrimp", "food", 3, false, null)),
+
+	// Bars
+	"copper_bar": new Bar("copper_bar", "Copper Bar", "bar", 20),
+	"iron_bar": new Bar("iron_bar", "Iron Bar", "bar", 35),
+	"mithril_bar": new Bar("mithril_bar", "Mithril Bar", "bar", 80),
+	"adamant_bar": new Bar("adamant_bar", "Adamant Bar", "bar", 95)
 }
 
 const listOfOres = [
@@ -133,4 +146,11 @@ const listOfFishableItems = [
 const expForCookingRawFoodTable = {
 	"raw_shrimp": 30,
 	"raw_sardine": 40
+}
+
+const oreToBar = {
+	"copper_ore": itemDb["copper_bar"],
+	"iron_ore": itemDb["iron_bar"],
+	"mithril_ore": itemDb["mithril_bar"],
+	"adamant_ore": itemDb["adamant_bar"]
 }
