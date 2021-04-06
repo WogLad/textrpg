@@ -249,6 +249,25 @@ class Player {
 		document.getElementById("equipment-div-textarea").innerHTML = equipmentText;
 	}
 
+	eat() {
+		var foodToEat = document.getElementById("food-to-eat-select-menu").value;
+		if (this.inventory.includes(itemDb[foodToEat]) == true) {
+			if (this.currentHP < this.maxHP) {
+				removeFromArray(this.inventory, itemDb[foodToEat]);
+				this.currentHP += itemDb[foodToEat].hpReceived;
+				if (this.currentHP > this.maxHP) {this.currentHP = this.maxHP;}
+				addToGameLogs("<span style='color:#00861d; font-weight: bold;'>You ate " + itemDb[foodToEat].name + " and received " + itemDb[foodToEat].hpReceived + " HP!</span>");
+				this.updateStatsText();
+			}
+			else {
+				addToGameLogs("<span style='color:red; font-weight: bold;'>You can't eat the " + itemDb[foodToEat].name + " since you're already at full HP.</span>");
+			}
+		}
+		else {
+			addToGameLogs("<span style='color:red; font-weight: bold;'>You don't have any " + itemDb[foodToEat].name + " to eat.</span>");
+		}
+	}
+
 	attack(enemyToAttack) {
 		var finalDamage = this.damage;
 		if (getRandomInt(0, 100) < this.critRate) {
@@ -398,7 +417,7 @@ class Player {
 		var itemToCook = itemDb[foodToCookSelectMenu.value]
 		if (this.inventory.includes(itemToCook) == true) {
 			this.inventory = removeFromArray(this.inventory, itemToCook);
-			this.addToInventory(itemToCook.cookedVersion);
+			this.addToInventory(itemDb[itemToCook.cookedVersion.id]);
 			this.skills[3].addExp(expForCookingRawFoodTable[itemToCook.id]);
 			addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + expForCookingRawFoodTable[itemToCook.id] + " Cooking EXP!</span>");
 			addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You successfully cooked the " + itemToCook.name + "!</span>");

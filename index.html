@@ -32,6 +32,24 @@
 		<button id="tpHomeButton" class="pomegranate-flat-button" onclick="player.tpHome();" style="transform: translate(0, -90px);">Home Teleport</button>
 		<button class="pomegranate-flat-button" id="interactWithWorldButton" onclick="player.interactWithWorld();" style="transform: translate(0, -90px);">Interact With World</button>
 		
+		<button style="transform: translateY(-90px);" data-modal-target="#eating-menu">Open Eating Menu</button>
+		<div class="modal" id="eating-menu">
+			<div class="modal-header">
+				<div class="title">Eating Menu</div>
+				<button data-close-button class="close-button">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>This is the eating menu where you can eat the food you have cooked and get back lost health and sometimes get other bonuses based on what you eat.</p>
+				<select name="food-to-eat" id="food-to-eat-select-menu">
+					<option value="cooked_shrimp">Shrimp</option>
+					<option value="cooked_sardine">Sardine</option>
+				</select>
+				<br>
+				<br>
+				<button onclick="player.eat();" style="transform: translateY(-10px);">EAT</button>
+			</div>
+		</div>
+		
 		<br>
 		<br>
 		
