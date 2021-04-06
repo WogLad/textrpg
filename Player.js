@@ -98,7 +98,7 @@ class Player {
 			new Skill("Fishing", 99),
 			new Skill("Woodcutting", 99),
 			new Skill("Cooking", 99),
-			new Skill("Smithing", 99)
+			new Skill("Smelting", 99)
 		]
 	}
 
@@ -408,17 +408,17 @@ class Player {
 		}
 	}
 
-	smithOre() {
-		var oreToSmith = itemDb[document.getElementById("ores-to-smith-select-menu").value];
-		if (this.inventory.includes(oreToSmith) == true) {
-			this.inventory = removeFromArray(this.inventory, oreToSmith);
-			var barObtained = oreToBar[oreToSmith.id];
+	smeltOre() {
+		var oreToSmelt = itemDb[document.getElementById("ores-to-smelt-select-menu").value];
+		if (this.inventory.includes(oreToSmelt) == true) {
+			this.inventory = removeFromArray(this.inventory, oreToSmelt);
+			var barObtained = oreToBar[oreToSmelt.id];
 			this.addToInventory(barObtained);
-			this.skills[4].addExp(barObtained.smithingExpToReceive);
-			addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + barObtained.smithingExpToReceive + " Smithing EXP!</span>");
+			this.skills[4].addExp(barObtained.smeltingExpToReceive);
+			addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + barObtained.smeltingExpToReceive + " Smelting EXP!</span>");
 		}
 		else {
-			addToGameLogs("<span style='color: red; font-weight: bold;'>You don't have any " + oreToSmith.name + " in your inventory to smith.</span>");
+			addToGameLogs("<span style='color: red; font-weight: bold;'>You don't have any " + oreToSmelt.name + " in your inventory to smelt.</span>");
 		}
 	}
 

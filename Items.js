@@ -39,9 +39,9 @@ class Ore extends Item {
 }
 
 class Bar extends Item {
-	constructor(id, name, type, smithingExpToReceive) {
+	constructor(id, name, type, smeltingExpToReceive) {
 		super(id, name, type);
-		this.smithingExpToReceive = smithingExpToReceive;
+		this.smeltingExpToReceive = smeltingExpToReceive;
 	}
 }
 
