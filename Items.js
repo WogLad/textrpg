@@ -131,6 +131,13 @@ const itemDb = {
 	"adamant_bar": new Bar("adamant_bar", "Adamant Bar", "bar", 95)
 }
 
+const craftingRecipesDb = {
+	"copper_sword": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["wood"]],
+	"iron_sword": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["wood"]],
+	"mithril_sword": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["wood"]],
+	"adamant_sword": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["wood"]]
+}
+
 const listOfOres = [
 	itemDb["copper_ore"],
 	itemDb["iron_ore"],

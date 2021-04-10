@@ -98,7 +98,8 @@ class Player {
 			new Skill("Fishing", 99),
 			new Skill("Woodcutting", 99),
 			new Skill("Cooking", 99),
-			new Skill("Smelting", 99)
+			new Skill("Smelting", 99),
+			new Skill("Crafting", 99)
 		]
 	}
 
@@ -121,6 +122,7 @@ class Player {
 
 	updateStatsText() {
 		document.getElementById("playerStatsDiv").innerHTML = (
+			"<b><u>Stats:</u></b>" + "<br>" +
 			"Damage: " + this.damage + "<br>" +
 			"Health: " + this.currentHP + "/" + this.maxHP + "<br>" +
 			"Defense: " + this.defense + "<br>" +
@@ -133,11 +135,12 @@ class Player {
 	updateSkillsText() {
 		document.getElementById("playerSkillsDiv").innerHTML = (
 			"<b><u>Skills:</u></b>" + "<br>" +
-			this.skills[0].name + ": " + this.skills[0].level + " (" + this.skills[0].exp + "/" + this.skills[0].getExpForNextLevel() + ")" + "<br>" + 
-			this.skills[1].name + ": " + this.skills[1].level + " (" + this.skills[1].exp + "/" + this.skills[1].getExpForNextLevel() + ")" + "<br>" + 
-			this.skills[2].name + ": " + this.skills[2].level + " (" + this.skills[2].exp + "/" + this.skills[2].getExpForNextLevel() + ")" + "<br>" + 
-			this.skills[3].name + ": " + this.skills[3].level + " (" + this.skills[3].exp + "/" + this.skills[3].getExpForNextLevel() + ")" + "<br>" + 
-			this.skills[4].name + ": " + this.skills[4].level + " (" + this.skills[4].exp + "/" + this.skills[4].getExpForNextLevel() + ")"
+			this.skills[0].name + ": " + this.skills[0].level + " (" + this.skills[0].exp + "/" + this.skills[0].getExpForNextLevel() + ")" + "<br>" +
+			this.skills[1].name + ": " + this.skills[1].level + " (" + this.skills[1].exp + "/" + this.skills[1].getExpForNextLevel() + ")" + "<br>" +
+			this.skills[2].name + ": " + this.skills[2].level + " (" + this.skills[2].exp + "/" + this.skills[2].getExpForNextLevel() + ")" + "<br>" +
+			this.skills[3].name + ": " + this.skills[3].level + " (" + this.skills[3].exp + "/" + this.skills[3].getExpForNextLevel() + ")" + "<br>" +
+			this.skills[4].name + ": " + this.skills[4].level + " (" + this.skills[4].exp + "/" + this.skills[4].getExpForNextLevel() + ")" + "<br>" +
+			this.skills[5].name + ": " + this.skills[5].level + " (" + this.skills[5].exp + "/" + this.skills[5].getExpForNextLevel() + ")"
 		);
 	}
 
@@ -441,6 +444,31 @@ class Player {
 		}
 	}
 
+	craft() {
+		var itemToCraft = document.getElementById("items-to-craft-select-menu").value;
+		if (craftingRecipesDb[itemToCraft] == null) {return;}
+		var canCraftItemToCraft = false;
+		for (var i = 0; i < craftingRecipesDb[itemToCraft].length; i++) {
+			if (this.inventory.includes(craftingRecipesDb[itemToCraft][i]) == true) {
+				canCraftItemToCraft = true;
+			}
+			else {
+				canCraftItemToCraft = false;
+				break;
+			}
+		}
+		if (canCraftItemToCraft == true) {
+			craftingRecipesDb[itemToCraft].forEach(item => {
+				removeFromArray(this.inventory, item);
+			});
+			this.addToInventory(itemDb[itemToCraft]);
+			addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You crafted the " + itemDb[itemToCraft].name + "!</span>");
+		}
+		else {
+			addToGameLogs("<span style='color: red; font-weight: bold;'>You don't have all the materials required to craft the " + itemDb[itemToCraft].name + "!</span>");
+		}
+	}
+
 	equip(equipment) {
 		switch (equipment.type) {
 			case "equipment":
@@ -589,6 +617,7 @@ class Player {
 		// Player Stats Loading
 		var skillsData = saveData["skills"];
 		for (var i = 0; i < this.skills.length; i++) {
+			if (skillsData[i] == null) {continue;}
 			this.skills[i].exp = skillsData[i]["exp"];
 			this.skills[i].level = skillsData[i]["level"];
 		}
