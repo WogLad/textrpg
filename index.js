@@ -76,3 +76,11 @@ setTimeout(() => {
 }, 100);
 
 //#endregion
+
+//#region SETUP CRAFTING MENU OPTIONS DYNAMICALLY
+var selectMenu = document.getElementById("items-to-craft-select-menu");
+selectMenu.innerHTML = "";
+Object.keys(craftingRecipesDb).forEach(recipeId => {
+	selectMenu.innerHTML += ('<option value="' + recipeId + '">' + itemDb[recipeId].name + '</option>');
+});
+//#endregion

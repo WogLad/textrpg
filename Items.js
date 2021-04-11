@@ -132,10 +132,47 @@ const itemDb = {
 }
 
 const craftingRecipesDb = {
+	// Axes
+	"copper_axe": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["wood"]],
+	"iron_axe": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["wood"]],
+	"mithril_axe": [itemDb["mithril_bar"], itemDb["mithril_bar"],itemDb["mithril_bar"], itemDb["wood"]],
+	"adamant_axe": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["wood"]],
+
+	// Pickaxes
+	"copper_pickaxe": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["wood"]],
+	"iron_pickaxe": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["wood"]],
+	"mithril_pickaxe": [itemDb["mithril_bar"], itemDb["mithril_bar"],itemDb["mithril_bar"], itemDb["wood"]],
+	"adamant_pickaxe": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["wood"]],
+
+	// Swords
 	"copper_sword": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["wood"]],
 	"iron_sword": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["wood"]],
 	"mithril_sword": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["wood"]],
-	"adamant_sword": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["wood"]]
+	"adamant_sword": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["wood"]],
+
+	// Armor (Head)
+	"copper_helmet": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"]],
+	"iron_helmet": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"]],
+	"mithril_helmet": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"]],
+	"adamant_helmet": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"]],
+
+	// Armor (Chest)
+	"copper_chestplate": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"]],
+	"iron_chestplate": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"]],
+	"mithril_chestplate": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"]],
+	"adamant_chestplate": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"]],
+
+	// Armor (Legs)
+	"copper_leggings": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"]],
+	"iron_leggings": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"]],
+	"mithril_leggings": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"]],
+	"adamant_leggings": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"]],
+
+	// Armor (Feet)
+	"copper_boots": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"]],
+	"iron_boots": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"]],
+	"mithril_boots": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"]],
+	"adamant_boots": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"]],
 }
 
 const listOfOres = [
