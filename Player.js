@@ -204,11 +204,47 @@ class Player {
 		this.inventory.push(item);
 	}
 
+	equipFromInventory(index) {
+		if (this.inventory[index] instanceof Tool || this.inventory[index] instanceof Weapon || this.inventory[index] instanceof Equipment) {
+			var e = null;
+			switch(this.inventory[index].type) {
+				case "equipment":
+					switch(this.inventory[index].equipmentType) {
+						case "head":
+							e = this.equipment.head;
+							break;
+						case "chest":
+							e = this.equipment.chest;
+							break;
+						case "legs":
+							e = this.equipment.legs;
+							break;
+						case "feet":
+							e = this.equipment.feet;
+							break;
+					}
+					break;
+				case "weapon":
+					e = this.equipment.weapon;
+					break;
+				case "tool":
+					e = this.equipment.tool;
+					break;
+			}
+			this.equip(this.inventory[index]);
+			this.inventory.splice(index, 1);
+			if (e != null) {
+				this.inventory.push(e);
+			}
+			this.updateInventoryTextDiv();
+		}
+	}
+
 	updateInventoryTextDiv() {
 		var inventoryDivTextArea = document.getElementById("inventory-div-textarea");
-		var inventoryText = this.inventory[0].name;
-		for (var i = 1; i < this.inventory.length; i++) {
-			inventoryText += "<br>" + this.inventory[i].name;
+		var inventoryText = "";
+		for (var i = 0; i < this.inventory.length; i++) {
+			inventoryText += "<p class='clickable' onclick='player.equipFromInventory(" + i + ");player.updateInventoryTextDiv();'>" + this.inventory[i].name + "</p>";
 		}
 		inventoryDivTextArea.innerHTML = inventoryText;
 		// Add the code to update the 'equipment-div-textarea' text for the equipment text.
