@@ -84,3 +84,11 @@ Object.keys(craftingRecipesDb).forEach(recipeId => {
 	selectMenu.innerHTML += ('<option value="' + recipeId + '">' + itemDb[recipeId].name + '</option>');
 });
 //#endregion
+
+//#region SETUP SMELTING MENU OPTIONS DYNAMICALLY
+var selectMenu = document.getElementById("ores-to-smelt-select-menu");
+selectMenu.innerHTML = "";
+Object.keys(oreToBar).forEach(ore => {
+	selectMenu.innerHTML += ('<option value="' + ore + '">' + itemDb[ore].name + '</option>');
+});
+//#endregion

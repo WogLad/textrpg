@@ -77,7 +77,7 @@
 				<button data-close-button class="close-button">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p>This is the cooking menu where you will cook the raw food you have and get Cooking EXP for doing so.</p>
+				<p style="font-size: 13px;">This is the cooking menu where you will cook the raw food you have and get Cooking EXP for doing so.</p>
 				<select name="food-to-cook" id="food-to-cook-select-menu">
 					<option value="raw_shrimp">Shrimp</option>
 					<option value="raw_sardine">Sardine</option>
@@ -114,12 +114,7 @@
 					<br>
 					You can then use those bars to make other items like weapons, tools, armor, etc.
 				</p>
-				<select name="ores-to-smelt" id="ores-to-smelt-select-menu">
-					<option value="copper_ore">Copper Ore</option>
-					<option value="iron_ore">Iron Ore</option>
-					<option value="mithril_ore">Mithril Ore</option>
-					<option value="adamant_ore">Adamant Ore</option>
-				</select>
+				<select name="ores-to-smelt" id="ores-to-smelt-select-menu"></select>
 				<br>
 				<br>
 				<button onclick="player.smeltOre();" style="transform: translateY(-10px);">SMELT</button>
