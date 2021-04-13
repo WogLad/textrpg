@@ -508,6 +508,7 @@ class Player {
 	equip(equipment) {
 		switch (equipment.type) {
 			case "equipment":
+				console.log("bob");
 				switch(equipment.equipmentType) {
 					case "head":
 						if (this.equipment.head == null) {
@@ -554,7 +555,9 @@ class Player {
 						}
 						break;
 				}
+				break;
 			case "tool":
+				console.log("bub");
 				if (this.equipment.tool == null) {
 					this.equipment.tool = equipment;
 					this.pickaxePower += equipment.pickaxePower;
