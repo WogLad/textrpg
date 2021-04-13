@@ -133,46 +133,318 @@ const itemDb = {
 
 const craftingRecipesDb = {
 	// Axes
-	"copper_axe": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["wood"]],
-	"iron_axe": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["wood"]],
-	"mithril_axe": [itemDb["mithril_bar"], itemDb["mithril_bar"],itemDb["mithril_bar"], itemDb["wood"]],
-	"adamant_axe": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["wood"]],
+	"copper_axe": {
+		"materialsRequired": [
+			{
+				"item": itemDb["copper_bar"],
+				"count": 3
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 25
+	},
+	"iron_axe": {
+		"materialsRequired": [
+			{
+				"item": itemDb["iron_bar"],
+				"count": 3
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 38
+	},
+	"mithril_axe": {
+		"materialsRequired": [
+			{
+				"item": itemDb["mithril_bar"],
+				"count": 3
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 50
+	},
+	"adamant_axe": {
+		"materialsRequired": [
+			{
+				"item": itemDb["adamant_bar"],
+				"count": 3
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 63
+	},
 
 	// Pickaxes
-	"copper_pickaxe": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["wood"]],
-	"iron_pickaxe": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["wood"]],
-	"mithril_pickaxe": [itemDb["mithril_bar"], itemDb["mithril_bar"],itemDb["mithril_bar"], itemDb["wood"]],
-	"adamant_pickaxe": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["wood"]],
+	"copper_pickaxe": {
+		"materialsRequired": [
+			{
+				"item": itemDb["copper_bar"],
+				"count": 3
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 25
+	},
+	"iron_pickaxe": {
+		"materialsRequired": [
+			{
+				"item": itemDb["iron_bar"],
+				"count": 3
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 38
+	},
+	"mithril_pickaxe": {
+		"materialsRequired": [
+			{
+				"item": itemDb["mithril_bar"],
+				"count": 3
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 50
+	},
+	"adamant_pickaxe": {
+		"materialsRequired": [
+			{
+				"item": itemDb["adamant_bar"],
+				"count": 3
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 63
+	},
 
 	// Swords
-	"copper_sword": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["wood"]],
-	"iron_sword": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["wood"]],
-	"mithril_sword": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["wood"]],
-	"adamant_sword": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["wood"]],
+	"copper_sword": {
+		"materialsRequired": [
+			{
+				"item": itemDb["copper_bar"],
+				"count": 2
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 25
+	},
+	"iron_sword": {
+		"materialsRequired": [
+			{
+				"item": itemDb["iron_bar"],
+				"count": 2
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 38
+	},
+	"mithril_sword": {
+		"materialsRequired": [
+			{
+				"item": itemDb["mithril_bar"],
+				"count": 2
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 50
+	},
+	"adamant_sword": {
+		"materialsRequired": [
+			{
+				"item": itemDb["adamant_bar"],
+				"count": 2
+			},
+			{
+				"item": itemDb["wood"],
+				"count": 1
+			}
+		],
+		"craftingExpToReceive": 63
+	},
 
 	// Armor (Head)
-	"copper_helmet": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"]],
-	"iron_helmet": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"]],
-	"mithril_helmet": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"]],
-	"adamant_helmet": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"]],
+	"copper_helmet": {
+		"materialsRequired": [
+			{
+				"item": itemDb["copper_bar"],
+				"count": 5
+			}
+		],
+		"craftingExpToReceive": 50
+	},
+	"iron_helmet": {
+		"materialsRequired": [
+			{
+				"item": itemDb["iron_bar"],
+				"count": 5
+			}
+		],
+		"craftingExpToReceive": 75
+	},
+	"mithril_helmet": {
+		"materialsRequired": [
+			{
+				"item": itemDb["mithril_bar"],
+				"count": 5
+			}
+		],
+		"craftingExpToReceive": 100
+	},
+	"adamant_helmet": {
+		"materialsRequired": [
+			{
+				"item": itemDb["adamant_bar"],
+				"count": 5
+			}
+		],
+		"craftingExpToReceive": 125
+	},
 
 	// Armor (Chest)
-	"copper_chestplate": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"]],
-	"iron_chestplate": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"]],
-	"mithril_chestplate": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"]],
-	"adamant_chestplate": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"]],
+	"copper_chestplate": {
+		"materialsRequired": [
+			{
+				"item": itemDb["copper_bar"],
+				"count": 8
+			}
+		],
+		"craftingExpToReceive": 125
+	},
+	"iron_chestplate": {
+		"materialsRequired": [
+			{
+				"item": itemDb["iron_bar"],
+				"count": 8
+			}
+		],
+		"craftingExpToReceive": 185
+	},
+	"mithril_chestplate": {
+		"materialsRequired": [
+			{
+				"item": itemDb["mithril_bar"],
+				"count": 8
+			}
+		],
+		"craftingExpToReceive": 250
+	},
+	"adamant_chestplate": {
+		"materialsRequired": [
+			{
+				"item": itemDb["adamant_bar"],
+				"count": 8
+			}
+		],
+		"craftingExpToReceive": 310
+	},
 
 	// Armor (Legs)
-	"copper_leggings": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"]],
-	"iron_leggings": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"]],
-	"mithril_leggings": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"]],
-	"adamant_leggings": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"]],
-
+	"copper_leggings": {
+		"materialsRequired": [
+			{
+				"item": itemDb["copper_bar"],
+				"count": 7
+			}
+		],
+		"craftingExpToReceive": 75
+	},
+	"iron_leggings": {
+		"materialsRequired": [
+			{
+				"item": itemDb["iron_bar"],
+				"count": 7
+			}
+		],
+		"craftingExpToReceive": 110
+	},
+	"mithril_leggings": {
+		"materialsRequired": [
+			{
+				"item": itemDb["mithril_bar"],
+				"count": 7
+			}
+		],
+		"craftingExpToReceive": 150
+	},
+	"adamant_leggings": {
+		"materialsRequired": [
+			{
+				"item": itemDb["adamant_bar"],
+				"count": 7
+			}
+		],
+		"craftingExpToReceive": 185
+	},
+	
 	// Armor (Feet)
-	"copper_boots": [itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"], itemDb["copper_bar"]],
-	"iron_boots": [itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"], itemDb["iron_bar"]],
-	"mithril_boots": [itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"], itemDb["mithril_bar"]],
-	"adamant_boots": [itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"], itemDb["adamant_bar"]],
+	"copper_boots": {
+		"materialsRequired": [
+			{
+				"item": itemDb["copper_bar"],
+				"count": 4
+			}
+		],
+		"craftingExpToReceive": 50
+	},
+	"iron_boots": {
+		"materialsRequired": [
+			{
+				"item": itemDb["iron_bar"],
+				"count": 4
+			}
+		],
+		"craftingExpToReceive": 75
+	},
+	"mithril_boots": {
+		"materialsRequired": [
+			{
+				"item": itemDb["mithril_bar"],
+				"count": 4
+			}
+		],
+		"craftingExpToReceive": 100
+	},
+	"adamant_boots": {
+		"materialsRequired": [
+			{
+				"item": itemDb["adamant_bar"],
+				"count": 4
+			}
+		],
+		"craftingExpToReceive": 125
+	},
 }
 
 const listOfOres = [

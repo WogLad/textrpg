@@ -9,6 +9,16 @@ function removeFromArray(arr, value) {
 	return arr;
 }
 
+function howManyOfItemInList(arr, value) {
+	var count = 0;
+	arr.forEach(element => {
+		if (element == value) {
+			count++;
+		}
+	});
+	return count;
+}
+
 function addToGameLogs(message) {
 	document.getElementById("gameLogs").innerHTML = message + "<br>" + document.getElementById("gameLogs").innerHTML;
 }

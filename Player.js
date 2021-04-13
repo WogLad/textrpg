@@ -484,8 +484,9 @@ class Player {
 		var itemToCraft = document.getElementById("items-to-craft-select-menu").value;
 		if (craftingRecipesDb[itemToCraft] == null) {return;}
 		var canCraftItemToCraft = false;
-		for (var i = 0; i < craftingRecipesDb[itemToCraft].length; i++) {
-			if (this.inventory.includes(craftingRecipesDb[itemToCraft][i]) == true) {
+		for (var i = 0; i < craftingRecipesDb[itemToCraft]["materialsRequired"].length; i++) {
+			const material = craftingRecipesDb[itemToCraft]["materialsRequired"][i];
+			if (howManyOfItemInList(this.inventory, material["item"]) >= material["count"]) {
 				canCraftItemToCraft = true;
 			}
 			else {
@@ -494,11 +495,15 @@ class Player {
 			}
 		}
 		if (canCraftItemToCraft == true) {
-			craftingRecipesDb[itemToCraft].forEach(item => {
-				removeFromArray(this.inventory, item);
+			craftingRecipesDb[itemToCraft]["materialsRequired"].forEach(material => {
+				for (var i = 0; i < material["count"]; i++) {
+					removeFromArray(this.inventory, material["item"]);
+				}
 			});
 			this.addToInventory(itemDb[itemToCraft]);
+			this.skills[5].addExp(craftingRecipesDb[itemToCraft]["craftingExpToReceive"]);
 			addToGameLogs("<span style='color: #00861d; font-weight: bold;'>You crafted the " + itemDb[itemToCraft].name + "!</span>");
+			addToGameLogs("<span style='color: gold; font-weight: bold;'>You received " + craftingRecipesDb[itemToCraft]["craftingExpToReceive"] + " Crafting EXP!</span>");
 		}
 		else {
 			addToGameLogs("<span style='color: red; font-weight: bold;'>You don't have all the materials required to craft the " + itemDb[itemToCraft].name + "!</span>");
@@ -508,7 +513,6 @@ class Player {
 	equip(equipment) {
 		switch (equipment.type) {
 			case "equipment":
-				console.log("bob");
 				switch(equipment.equipmentType) {
 					case "head":
 						if (this.equipment.head == null) {
@@ -557,7 +561,6 @@ class Player {
 				}
 				break;
 			case "tool":
-				console.log("bub");
 				if (this.equipment.tool == null) {
 					this.equipment.tool = equipment;
 					this.pickaxePower += equipment.pickaxePower;
