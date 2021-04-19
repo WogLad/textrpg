@@ -28,11 +28,12 @@ class LootTable {
 }
 
 class Enemy {
-	constructor(name, encounterMessage, damage, maxHP, lootTables) {
+	constructor(name, encounterMessage, damage, defense, maxHP, lootTables) {
 		this.name = name;
 		this.encounterMessage = encounterMessage;
 
 		this.damage = damage;
+		this.defense = defense;
 		this.currentHP = maxHP;
 		this.maxHP = maxHP;
 
@@ -124,8 +125,9 @@ const enemyDb = {
 	"skeleton": new Enemy(
 		"Skeleton",
 		"You encountered a skeleton!",
-		2,
-		18,
+		3,
+		17,
+		24,
 		[
 			new LootTable(skeletonLootTable),
 			new LootTable(oreLootTable)
@@ -134,35 +136,41 @@ const enemyDb = {
 	"slime": new Enemy(
 		"Slime",
 		"You encountered a slime!",
-		1,
-		50,
+		2,
+		35,
+		25,
 		[
 			new LootTable(slimeLootTable),
 			new LootTable(oreLootTable)
-		]),
+		]
+	),
 	"spider": new Enemy(
 		"Spider",
 		"You encountered a spider!",
+		1,
 		1,
 		2,
 		[
 			new LootTable(spiderLootTable),
 			new LootTable(oreLootTable)
-		]),
+		]
+	),
 	"zombie": new Enemy(
 		"Zombie",
 		"You encountered a zombie!",
 		2,
+		10,
 		22,
 		[
 			new LootTable(zombieLootTable),
 			new LootTable(oreLootTable)
-		])
+		]
+	)
 }
 
 function getRandomEnemy() {
 	var enemyList = Object.keys(enemyDb);
 	var randomEnemy = enemyDb[enemyList[getRandomInt(0, enemyList.length)]];
-	var enemyToReturn = new Enemy(randomEnemy.name, randomEnemy.encounterMessage, randomEnemy.damage, randomEnemy.maxHP, randomEnemy.lootTables);
+	var enemyToReturn = new Enemy(randomEnemy.name, randomEnemy.encounterMessage, randomEnemy.damage, randomEnemy.defense, randomEnemy.maxHP, randomEnemy.lootTables);
 	return enemyToReturn;
 }

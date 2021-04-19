@@ -307,13 +307,22 @@ class Player {
 		}
 	}
 
+	calculateDamage(attack, defense) {
+		var dmg = Math.floor((attack * (100 / (100 + defense))));
+		if (dmg < 1) {
+			dmg = 1;
+		}
+		return dmg;
+	}
+
 	attack(enemyToAttack) {
 		var finalDamage = this.damage;
 		if (getRandomInt(0, 100) < this.critRate) {
 			finalDamage += (finalDamage * (this.critDamage/100));
 		}
         finalDamage = Math.floor(finalDamage);
-        addToGameLogs("<span style='color:#00861d;'>You deal " + finalDamage.toString() + " damage to the enemy.</span>");
+		finalDamage = this.calculateDamage(finalDamage, enemyToAttack.defense)
+		addToGameLogs("<span style='color:#00861d;'>You deal " + finalDamage.toString() + " damage to the enemy.</span>");
 		enemyToAttack.takeDamage(finalDamage);
 		this.updateStatsText();
 	}
@@ -326,6 +335,7 @@ class Player {
 	}
 
 	takeDamage(damageToTake) {
+		damageToTake = this.calculateDamage(damageToTake, this.defense);
 		this.currentHP -= damageToTake;
         addToGameLogs("<span style='color:red'>You lost " + damageToTake.toString() + " HP.</span>");
 		this.updateStatsText();
@@ -343,7 +353,7 @@ class Player {
             addToGameLogs("You begin to fight the " + enemy.name.toLowerCase() + ".");
             var turns = 0;
             var battleLoop = setInterval(() => {
-                if (turns % 2 == 0) {
+                if (turns % 2 == 0) { // Player Attacks Enemy
                     this.attack(enemy);
                     if (enemy.currentHP <= 0) {
                         this.canMove = true;
@@ -353,7 +363,7 @@ class Player {
                     }
 					this.updateStatsText();
                 }
-                else {
+                else { // Enemy Attacks Player
                     this.takeDamage(enemy.damage);
                     if (this.currentHP <= 0) {
                         this.canMove = true;
