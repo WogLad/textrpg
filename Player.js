@@ -137,6 +137,17 @@ class Player {
 			"Crit Rate: " + this.critRate + "%" + "<br>" +
 			"Crit Damage: " + this.critDamage + "%"
 		);
+		switch(this.location) {
+			case Locations.OVERWORLD:
+				document.getElementById("playerStatsDiv").innerHTML += "<br>" + "Tree Find Rate: " + this.treeFindRate + "%";
+				break;
+			case Locations.CAVE:
+				document.getElementById("playerStatsDiv").innerHTML += "<br>" + "Ore Find Rate: " + this.oreFindRate + "%";
+				break;
+			case Locations.LAKE:
+				document.getElementById("playerStatsDiv").innerHTML += "<br>" + "Fish Catch Rate: " + this.fishCatchRate + "%";
+				break;
+		}
 	}
 
 	updateSkillsText() {
@@ -204,6 +215,7 @@ class Player {
 					break;
 			}
 			this.updatePosText();
+			this.updateStatsText();
 		}
 	}
 
@@ -396,6 +408,7 @@ class Player {
 			addToGameLogs("You entered the cave.");
 			this.location = Locations.CAVE;
 			this.updatePosText();
+			this.updateStatsText();
 		}
 	}
 
@@ -425,6 +438,7 @@ class Player {
 			addToGameLogs("You sat near the lake.");
 			this.location = Locations.LAKE;
 			this.updatePosText();
+			this.updateStatsText();
 		}
 	}
 
