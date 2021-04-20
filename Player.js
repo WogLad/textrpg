@@ -100,7 +100,14 @@ class Player {
 			new Skill("Cooking", 99),
 			new Skill("Smelting", 99),
 			new Skill("Crafting", 99)
-		]
+		];
+
+		this.killsDb = {
+			"Skeleton": 0,
+			"Slime": 0,
+			"Spider": 0,
+			"Zombie": 0
+		};
 	}
 
 	updatePosText() {
@@ -359,6 +366,7 @@ class Player {
                         this.canMove = true;
                         enemy.die();
                         this.kills++;
+						this.killsDb[enemy.name]++;
                         clearInterval(battleLoop);
                     }
 					this.updateStatsText();
@@ -631,6 +639,7 @@ class Player {
         // this.critRate = saveData["critRate"];
         // this.defense = saveData["defense"];
         this.kills = saveData["kills"];
+		this.killsDb = saveData["killsDb"];
         this.currentHP = saveData["currentHP"];
         this.maxHP = saveData["maxHP"];
         // this.movementSpeed = saveData["movementSpeed"];
