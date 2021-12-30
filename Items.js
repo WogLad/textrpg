@@ -6,6 +6,19 @@ class Item {
 	}
 }
 
+class Enchantment {
+	constructor(name, statsToBuff) {
+		this.name = name;
+		this.statsToBuff = statsToBuff;
+	}
+
+	enchant() {
+		this.statsToBuff.forEach(stat => {
+			console.log(stat);
+		});
+	}
+}
+
 class Tool extends Item {
 	constructor(id, name, type, axePower, pickaxePower) {
 		super(id, name, type);

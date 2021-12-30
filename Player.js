@@ -99,7 +99,8 @@ class Player {
 			new Skill("Woodcutting", 99),
 			new Skill("Cooking", 99),
 			new Skill("Smelting", 99),
-			new Skill("Crafting", 99)
+			new Skill("Crafting", 99),
+			new Skill("Enchanting", 99)
 		];
 
 		this.killsDb = {
@@ -158,7 +159,8 @@ class Player {
 			this.skills[2].name + ": " + this.skills[2].level + " (" + this.skills[2].exp + "/" + this.skills[2].getExpForNextLevel() + ")" + "<br>" +
 			this.skills[3].name + ": " + this.skills[3].level + " (" + this.skills[3].exp + "/" + this.skills[3].getExpForNextLevel() + ")" + "<br>" +
 			this.skills[4].name + ": " + this.skills[4].level + " (" + this.skills[4].exp + "/" + this.skills[4].getExpForNextLevel() + ")" + "<br>" +
-			this.skills[5].name + ": " + this.skills[5].level + " (" + this.skills[5].exp + "/" + this.skills[5].getExpForNextLevel() + ")"
+			this.skills[5].name + ": " + this.skills[5].level + " (" + this.skills[5].exp + "/" + this.skills[5].getExpForNextLevel() + ")" + "<br>" +
+			this.skills[6].name + ": " + this.skills[6].level + " (" + this.skills[6].exp + "/" + this.skills[6].getExpForNextLevel() + ")"
 		);
 	}
 
@@ -263,7 +265,7 @@ class Player {
 		var inventoryDivTextArea = document.getElementById("inventory-div-textarea");
 		var inventoryText = "";
 		for (var i = 0; i < this.inventory.length; i++) {
-			inventoryText += "<p class='clickable' onclick='player.equipFromInventory(" + i + ");player.updateInventoryTextDiv();'>" + this.inventory[i].name + "</p>";
+			inventoryText += "<p style='cursor: pointer;' class='clickable' onclick='player.equipFromInventory(" + i + ");player.updateInventoryTextDiv();'>" + this.inventory[i].name + "</p>";
 		}
 		inventoryDivTextArea.innerHTML = inventoryText;
 		// Add the code to update the 'equipment-div-textarea' text for the equipment text.
@@ -336,6 +338,7 @@ class Player {
 
 	attack(enemyToAttack) {
 		var finalDamage = this.damage;
+		// Add enchantments to the damage and other values.
 		if (getRandomInt(0, 100) < this.critRate) {
 			finalDamage += (finalDamage * (this.critDamage/100));
 		}
