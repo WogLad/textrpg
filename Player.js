@@ -103,12 +103,12 @@ class Player {
 			new Skill("Enchanting", 99)
 		];
 
-		this.killsDb = {
+		/*this.killsDb = {
 			"Skeleton": 0,
 			"Slime": 0,
 			"Spider": 0,
 			"Zombie": 0
-		};
+		};*/
 	}
 
 	updatePosText() {
@@ -379,9 +379,10 @@ class Player {
                     this.attack(enemy);
                     if (enemy.currentHP <= 0) {
                         this.canMove = true;
+						var enemyName = enemy.name;
                         enemy.die();
                         this.kills++;
-						this.killsDb[enemy.name]++;
+						//this.killsDb[enemyName]++;
                         clearInterval(battleLoop);
                     }
 					this.updateStatsText();
@@ -656,7 +657,8 @@ class Player {
         // this.critRate = saveData["critRate"];
         // this.defense = saveData["defense"];
         this.kills = saveData["kills"];
-		this.killsDb = saveData["killsDb"];
+		console.log(saveData["killsDb"]);
+		//this.killsDb = saveData["killsDb"];
         this.currentHP = saveData["currentHP"];
         this.maxHP = saveData["maxHP"];
         // this.movementSpeed = saveData["movementSpeed"];
