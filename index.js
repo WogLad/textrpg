@@ -38,6 +38,21 @@ setInterval(() => {
 	localStorage.setItem("saveData", JSON.stringify(player));
 }, 1000);
 
+document.body.addEventListener("keydown", (e) => {
+	if (e.key == "w" || e.key == "ArrowUp") {
+		player.move(0, 1);
+	}
+	else if (e.key == "a" || e.key == "ArrowLeft") {
+		player.move(-1, 0);
+	}
+	else if (e.key == "s" || e.key == "ArrowDown") {
+		player.move(0, -1);
+	}
+	else if (e.key == "d" || e.key == "ArrowRight") {
+		player.move(1, 0);
+	}
+});
+
 //#region POPUP MODALS
 
 const openModalButtons = document.querySelectorAll('[data-modal-target]');
