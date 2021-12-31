@@ -65,7 +65,7 @@ select {
     border: 1px rgb(38, 38, 38);
     border-radius: 5px;
     z-index: 10;
-    background-color: rgb(70, 70, 70);
+    background-color: rgb(30, 30, 30);
     width: 750px;
     max-width: 80%;
     display: none;

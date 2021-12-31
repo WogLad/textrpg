@@ -449,6 +449,8 @@ class Player {
 	fish() {
 		if (this.canFish) {
 			this.canFish = false;
+			document.getElementById("interactWithWorldButton").style.cursor = "not-allowed";
+			document.getElementById("interactWithWorldButton").disabled = true;
 			addToGameLogs("You try to fish in the lake...");
 			setTimeout(() => {
 				if (getRandomInt(0, 100) < this.fishCatchRate) {
@@ -463,6 +465,8 @@ class Player {
 					addToGameLogs("<span style='color: red'>You failed to catch anything!</span>");
 				}
 				this.canFish = true;
+				document.getElementById("interactWithWorldButton").style.cursor = "pointer";
+				document.getElementById("interactWithWorldButton").disabled = false;
 			}, 1000);
 		}
 	}
